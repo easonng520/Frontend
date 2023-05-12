@@ -18,7 +18,7 @@ import BoardAdmin from "./components/board-admin.component";
 import AddCat from "./components/add-cat.component";
 import Cat from "./components/cat.component";
 import CatsList from "./components/cats-list.component";
-
+import CatsListPublic from "./components/cats-list-public.component";
 import EventBus from "./common/EventBus";
 
 type Props = {};
@@ -154,8 +154,8 @@ class App extends Component<Props, State> {
 
         <div className="container pt-3 mt-5 pb-3 mb-5 " >
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<CatsListPublic />} />
+            <Route path="/Home" element={<CatsListPublic />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
