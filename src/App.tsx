@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+//import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import AuthService from "./services/auth.service";
@@ -13,6 +13,11 @@ import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
+
+import AddTutorial from "./components/add-tutorial.component";
+import Tutorial from "./components/tutorial.component";
+import TutorialsList from "./components/tutorials-list.component";
+
 
 import EventBus from "./common/EventBus";
 
@@ -79,6 +84,20 @@ class App extends Component<Props, State> {
               </Link>
             </li>
 
+
+             <li className="nav-item">
+              <Link to={"/tutorials"} className="nav-link">
+                Tutorials
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/add"} className="nav-link">
+                Add
+              </Link>
+            </li>
+
+
+            
             {showModeratorBoard && (
               <li className="nav-item">
                 <Link to={"/mod"} className="nav-link">
@@ -144,6 +163,14 @@ class App extends Component<Props, State> {
             <Route path="/user" element={<BoardUser />} />
             <Route path="/mod" element={<BoardModerator />} />
             <Route path="/admin" element={<BoardAdmin />} />
+
+
+                      <Route path="/tutorial/" element={<TutorialsList/>} />
+            <Route path="/tutorials" element={<TutorialsList/>} />
+            <Route path="/add" element={<AddTutorial/>} />
+            <Route path="/tutorials/:id" element={<Tutorial/>} />
+
+            
           </Routes>
         </div>
 
