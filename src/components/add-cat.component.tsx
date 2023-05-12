@@ -1,20 +1,20 @@
 import { Component, ChangeEvent } from "react";
-import TutorialDataService from "../services/tutorial.service";
-import ITutorialData from '../types/tutorial.type';
+import CatDataService from "../services/cat.service";
+import ICatData from '../types/cat.type';
 
 type Props = {};
 
-type State = ITutorialData & {
+type State = ICatData & {
   submitted: boolean
 };
 
-export default class AddTutorial extends Component<Props, State> {
+export default class AddCat extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.onChangeTitle = this.onChangeTitle.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.saveTutorial = this.saveTutorial.bind(this);
-    this.newTutorial = this.newTutorial.bind(this);
+    this.saveCat = this.saveCat.bind(this);
+    this.newCat = this.newCat.bind(this);
 
     this.state = {
       id: null,
@@ -37,13 +37,13 @@ export default class AddTutorial extends Component<Props, State> {
     });
   }
 
-  saveTutorial() {
-    const data: ITutorialData = {
+  saveCat() {
+    const data: ICatData = {
       title: this.state.title,
       description: this.state.description
     };
 
-    TutorialDataService.create(data)
+    CatDataService.create(data)
       .then((response: any) => {
         this.setState({
           id: response.data.id,
@@ -59,7 +59,7 @@ export default class AddTutorial extends Component<Props, State> {
       });
   }
 
-  newTutorial() {
+  newCat() {
     this.setState({
       id: null,
       title: "",
@@ -77,7 +77,7 @@ export default class AddTutorial extends Component<Props, State> {
         {submitted ? (
           <div>
             <h4>You submitted successfully!</h4>
-            <button className="btn btn-success" onClick={this.newTutorial}>
+            <button className="btn btn-success" onClick={this.newCat}>
               Add
             </button>
           </div>
@@ -109,7 +109,7 @@ export default class AddTutorial extends Component<Props, State> {
               />
             </div>
 
-            <button onClick={this.saveTutorial} className="btn btn-success">
+            <button onClick={this.saveCat} className="btn btn-success">
               Submit
             </button>
           </div>

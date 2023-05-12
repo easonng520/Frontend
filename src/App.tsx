@@ -14,10 +14,10 @@ import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 
-import AddTutorial from "./components/add-tutorial.component";
-import Tutorial from "./components/tutorial.component";
-import TutorialsList from "./components/tutorials-list.component";
 
+import AddCat from "./components/add-cat.component";
+import Cat from "./components/cat.component";
+import CatsList from "./components/cats-list.component";
 
 import EventBus from "./common/EventBus";
 
@@ -85,9 +85,9 @@ class App extends Component<Props, State> {
             </li>
 
 
-             <li className="nav-item">
-              <Link to={"/tutorials"} className="nav-link">
-                Tutorials
+          <li className="nav-item">
+              <Link to={"/cats"} className="nav-link">
+                Cats
               </Link>
             </li>
             <li className="nav-item">
@@ -95,7 +95,6 @@ class App extends Component<Props, State> {
                 Add
               </Link>
             </li>
-
 
             
             {showModeratorBoard && (
@@ -165,11 +164,10 @@ class App extends Component<Props, State> {
             <Route path="/admin" element={<BoardAdmin />} />
 
 
-                      <Route path="/tutorial/" element={<TutorialsList/>} />
-            <Route path="/tutorials" element={<TutorialsList/>} />
-            <Route path="/add" element={<AddTutorial/>} />
-            <Route path="/tutorials/:id" element={<Tutorial/>} />
-
+            <Route path="/" element={<CatsList/>} />
+            <Route path="/cats" element={<CatsList/>} />
+            <Route path="/add" element={<AddCat/>} />
+            <Route path="/cats/:id" element={<Cat/>} />
             
           </Routes>
         </div>

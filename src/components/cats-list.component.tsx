@@ -1,37 +1,37 @@
 import { Component, ChangeEvent } from "react";
-import TutorialDataService from "../services/tutorial.service";
+import CatDataService from "../services/cat.service";
 import { Link } from "react-router-dom";
-import ITutorialData from '../types/tutorial.type';
+import ICatData from '../types/cat.type';
 
 type Props = {};
 
 type State = {
-  tutorials: Array<ITutorialData>,
-  currentTutorial: ITutorialData | null,
+  cats: Array<ICatData>,
+  currentCat: ICatData | null,
   currentIndex: number,
   searchTitle: string
 };
 
-export default class TutorialsList extends Component<Props, State>{
+export default class CatsList extends Component<Props, State>{
   constructor(props: Props) {
     super(props);
     this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
-    this.retrieveTutorials = this.retrieveTutorials.bind(this);
+    this.retrieveCats = this.retrieveCats.bind(this);
     this.refreshList = this.refreshList.bind(this);
-    this.setActiveTutorial = this.setActiveTutorial.bind(this);
-    this.removeAllTutorials = this.removeAllTutorials.bind(this);
+    this.setActiveCat = this.setActiveCat.bind(this);
+    this.removeAllCats = this.removeAllCats.bind(this);
     this.searchTitle = this.searchTitle.bind(this);
 
     this.state = {
-      tutorials: [],
-      currentTutorial: null,
+      cats: [],
+      currentCat: null,
       currentIndex: -1,
       searchTitle: ""
     };
   }
 
   componentDidMount() {
-    this.retrieveTutorials();
+    this.retrieveCats();
   }
 
   onChangeSearchTitle(e: ChangeEvent<HTMLInputElement>) {
@@ -42,11 +42,11 @@ export default class TutorialsList extends Component<Props, State>{
     });
   }
 
-  retrieveTutorials() {
-    TutorialDataService.getAll()
+  retrieveCats() {
+    CatDataService.getAll()
       .then((response: any) => {
         this.setState({
-          tutorials: response.data
+          cats: response.data
         });
         console.log(response.data);
       })
@@ -56,22 +56,22 @@ export default class TutorialsList extends Component<Props, State>{
   }
 
   refreshList() {
-    this.retrieveTutorials();
+    this.retrieveCats();
     this.setState({
-      currentTutorial: null,
+      currentCat: null,
       currentIndex: -1
     });
   }
 
-  setActiveTutorial(tutorial: ITutorialData, index: number) {
+  setActiveCat(cat: ICatData, index: number) {
     this.setState({
-      currentTutorial: tutorial,
+      currentCat: cat,
       currentIndex: index
     });
   }
 
-  removeAllTutorials() {
-    TutorialDataService.deleteAll()
+  removeAllCats() {
+    CatDataService.deleteAll()
       .then((response: any) => {
         console.log(response.data);
         this.refreshList();
@@ -83,14 +83,14 @@ export default class TutorialsList extends Component<Props, State>{
 
   searchTitle() {
     this.setState({
-      currentTutorial: null,
+      currentCat: null,
       currentIndex: -1
     });
 
-    TutorialDataService.findByTitle(this.state.searchTitle)
+    CatDataService.findByTitle(this.state.searchTitle)
       .then((response: any) => {
         this.setState({
-          tutorials: response.data
+          cats: response.data
         });
         console.log(response.data);
       })
@@ -100,7 +100,7 @@ export default class TutorialsList extends Component<Props, State>{
   }
 
   render() {
-    const { searchTitle, tutorials, currentTutorial, currentIndex } = this.state;
+    const { searchTitle, cats, currentCat, currentIndex } = this.state;
 
     return (
       <div className="list row">
@@ -125,56 +125,56 @@ export default class TutorialsList extends Component<Props, State>{
           </div>
         </div>
         <div className="col-md-6">
-          <h4>Tutorials List</h4>
+          <h4>Cats List</h4>
 
           <ul className="list-group">
-            {tutorials &&
-              tutorials.map((tutorial: ITutorialData, index: number) => (
+            {cats &&
+              cats.map((cat: ICatData, index: number) => (
                 <li
                   className={
                     "list-group-item " +
                     (index === currentIndex ? "active" : "")
                   }
-                  onClick={() => this.setActiveTutorial(tutorial, index)}
+                  onClick={() => this.setActiveCat(cat, index)}
                   key={index}
                 >
-                  {tutorial.title}
+                  {cat.title}
                 </li>
               ))}
           </ul>
 
           <button
             className="m-3 btn btn-sm btn-danger"
-            onClick={this.removeAllTutorials}
+            onClick={this.removeAllCats}
           >
             Remove All
           </button>
         </div>
         <div className="col-md-6">
-          {currentTutorial ? (
+          {currentCat ? (
             <div>
-              <h4>Tutorial</h4>
+              <h4>Cat</h4>
               <div>
                 <label>
                   <strong>Title:</strong>
                 </label>{" "}
-                {currentTutorial.title}
+                {currentCat.title}
               </div>
               <div>
                 <label>
                   <strong>Description:</strong>
                 </label>{" "}
-                {currentTutorial.description}
+                {currentCat.description}
               </div>
               <div>
                 <label>
                   <strong>Status:</strong>
                 </label>{" "}
-                {currentTutorial.published ? "Published" : "Pending"}
+                {currentCat.published ? "Published" : "Pending"}
               </div>
 
               <Link
-                to={"/tutorials/" + currentTutorial.id}
+                to={"/cats/" + currentCat.id}
                 className="badge badge-warning"
               >
                 Edit
@@ -183,7 +183,7 @@ export default class TutorialsList extends Component<Props, State>{
           ) : (
             <div>
               <br />
-              <p>Please click on a Tutorial...</p>
+              <p>Please click on a Cat...</p>
             </div>
           )}
         </div>
