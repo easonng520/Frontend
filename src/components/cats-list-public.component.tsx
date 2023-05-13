@@ -91,7 +91,7 @@ export default class CatsList extends Component<Props, State>{
 
     return (
       <div className="list row">
-        <div className="col-md-2">
+        <div className="col-md-12">
           <div className="input-group mb-3">
             <input
               type="text"
