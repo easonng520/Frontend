@@ -6,7 +6,7 @@ class Cat extends Component {
   constructor(props) {
     super(props);
     this.onChangeTitle = this.onChangeTitle.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.onChangeImage = this.onChangeImage.bind(this);
     this.getCat = this.getCat.bind(this);
     this.updatePublished = this.updatePublished.bind(this);
     this.updateCat = this.updateCat.bind(this);
@@ -16,7 +16,7 @@ class Cat extends Component {
       currentCat: {
         id: null,
         title: "",
-        description: "",
+        image: "",
         published: false
       },
       message: ""
@@ -40,13 +40,13 @@ class Cat extends Component {
     });
   }
 
-  onChangeDescription(e) {
-    const description = e.target.value;
+  onChangeImage(e) {
+    const image = e.target.value;
     
     this.setState(prevState => ({
       currentCat: {
         ...prevState.currentCat,
-        description: description
+        image: image
       }
     }));
   }
@@ -68,7 +68,7 @@ class Cat extends Component {
     var data = {
       id: this.state.currentCat.id,
       title: this.state.currentCat.title,
-      description: this.state.currentCat.description,
+      image: this.state.currentCat.image,
       published: status
     };
 
@@ -134,13 +134,13 @@ class Cat extends Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="description">Description</label>
+                <label htmlFor="image">Image</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="description"
-                  value={currentCat.description}
-                  onChange={this.onChangeDescription}
+                  id="image"
+                  value={currentCat.image}
+                  onChange={this.onChangeImage}
                 />
               </div>
 
