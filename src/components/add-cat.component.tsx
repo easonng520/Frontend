@@ -15,8 +15,15 @@ export default class AddCat extends Component<Props, State> {
     this.onChangeDescription = this.onChangeDescription.bind(this);
     
     this.onChangeName = this.onChangeName.bind(this);
+    this.onChangeSex = this.onChangeSex.bind(this);
     this.onChangeBreed = this.onChangeBreed.bind(this);
-
+    this.onChangeDOB = this.onChangeDOB.bind(this);
+    this.onChangeMicrochip = this.onChangeMicrochip.bind(this);
+    this.onChangeCentre = this.onChangeCentre.bind(this);
+    this.onChangeStatus = this.onChangeStatus.bind(this);
+    this.onChangeImage = this.onChangeImage.bind(this);
+    this.onChangeRemark = this.onChangeRemark.bind(this);
+    
     this.saveCat = this.saveCat.bind(this);
     this.newCat = this.newCat.bind(this);
 
@@ -26,9 +33,16 @@ export default class AddCat extends Component<Props, State> {
       description: "",
       published: false,
 
-       name: "",
-       breed: "",
-         
+      name: "",
+      sex:"",
+      breed:"",
+      DOB:"",   
+      microchip:"",
+      centre:"",
+      status:"",        
+      image: "",
+      remark:"", 
+      
       submitted: false
      
     };
@@ -51,10 +65,55 @@ onChangeDescription(e: ChangeEvent<HTMLInputElement>) {
       name: e.target.value
     });
   }
-  
+
+  onChangeSex(e: ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      sex: e.target.value
+    });
+  }
+
     onChangeBreed(e: ChangeEvent<HTMLInputElement>) {
     this.setState({
       breed: e.target.value
+    });
+  }
+
+    onChangeDOB(e: ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      DOB: e.target.value
+    });
+  }
+
+      onChangeMicrochip(e: ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      microchip: e.target.value
+    });
+  }
+
+  
+      onChangeMicrochip(e: ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      microchip: e.target.value
+    });
+  }
+  onChangeCentre(e: ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      centre: e.target.value
+    });
+  }
+  onChangeStatus(e: ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      status: e.target.value
+    });
+  }
+    onChangeImage(e: ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      image: e.target.value
+    });
+  }
+    onChangeRemark(e: ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      remark: e.target.value
     });
   }
   
@@ -64,7 +123,15 @@ onChangeDescription(e: ChangeEvent<HTMLInputElement>) {
     description: this.state.description,
     
     name: this.state.name,
-    breed: this.state.breed
+    sex: this.state.sex,
+    breed: this.state.breed,
+    DOB: this.state.DOB,
+    microchip: this.state.microchip,
+    centre: this.state.centre,
+    status: this.state.status,
+    image: this.state.image,
+    remark: this.state.remark,
+      
     };
 
     CatDataService.create(data)
@@ -76,7 +143,14 @@ onChangeDescription(e: ChangeEvent<HTMLInputElement>) {
           published: response.data.published,
 
           name: response.data.name,
+          sex: response.data.sex,
           breed: response.data.breed,
+          DOB: response.data.DOB,
+          microchip: response.data.microchip,
+          centre: response.data.centre,
+          status: response.data.status,
+          image: response.data.image,
+          remark: response.data.remark,
 
           
           submitted: true
@@ -96,14 +170,21 @@ onChangeDescription(e: ChangeEvent<HTMLInputElement>) {
       published: false,
 
       name: "",
+      sex: "",
       breed: "",
+      DOB: "",
+      microchip: "",
+      centre: "",
+      status: "",
+      image: "",
+      remark: "",
       
       submitted: false
     });
   }
 
   render() {
-    const { submitted, title, description, name, breed, } = this.state;
+    const { submitted, title, description, name, sex, breed,DOB,microchip,centre,status,image,remark} = this.state;
 
     return (
       <div className="submit-form">
@@ -146,7 +227,7 @@ onChangeDescription(e: ChangeEvent<HTMLInputElement>) {
 
 
             <div className="form-group">
-              <label htmlFor="catname">Name</label>
+              <label htmlFor="name">Name</label>
               <input
                 type="text"
                 className="form-control"
@@ -157,6 +238,21 @@ onChangeDescription(e: ChangeEvent<HTMLInputElement>) {
                 name="name"
               />
             </div>
+
+      <div className="form-group">
+              <label htmlFor="sex">Sex</label>
+              <input
+                type="text"
+                className="form-control"
+                id="sex"
+                
+                value={sex}
+                onChange={this.onChangeSex}
+                name="sex"
+              />
+            </div>
+
+
             
             <div className="form-group">
               <label htmlFor="breed">Breed</label>
@@ -171,6 +267,72 @@ onChangeDescription(e: ChangeEvent<HTMLInputElement>) {
               />
             </div>
 
+               <div className="form-group">
+              <label htmlFor="DOB">DOB</label>
+              <input
+                type="text"
+                className="form-control"
+                id="DOB"
+                
+                value={DOB}
+                onChange={this.onChangeDOB}
+                name="DOB"
+              />
+            </div>
+
+                        <div className="form-group">
+              <label htmlFor="microchip">Microchip</label>
+              <input
+                type="text"
+                className="form-control"
+                id="microchip"
+                
+                value={microchip}
+                onChange={this.onChangeMicrochip}
+                name="microchip"
+              />
+            </div>
+
+               <div className="form-group">
+              <label htmlFor="centre">Centre</label>
+              <input
+                type="text"
+                className="form-control"
+                id="centre"
+                
+                value={centre}
+                onChange={this.onChangeCentre}
+                name="centre"
+              />
+            </div>
+
+            
+            <div className="form-group">
+              <label htmlFor="image">Image</label>
+              <input
+                type="text"
+                className="form-control"
+                id="image"
+                
+                value={image}
+                onChange={this.onChangeImage}
+                name="image"
+              />
+            </div>
+
+
+                    <div className="form-group">
+              <label htmlFor="remark">Remark</label>
+              <input
+                type="text"
+                className="form-control"
+                id="remark"
+                
+                value={remark}
+                onChange={this.onChangeRemark}
+                name="remark"
+              />
+            </div>
             
             <button onClick={this.saveCat} className="btn btn-success">
               Submit

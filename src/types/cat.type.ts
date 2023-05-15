@@ -3,6 +3,7 @@ export default interface ICatData {
   title: string,
   description: string,
   published?: boolean,
+    
   name:string,
   sex: string,
   breed: string,
