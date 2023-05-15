@@ -8,21 +8,21 @@ type State = {
   cats: Array<ICatData>,
   currentCat: ICatData | null,
   currentIndex: number,
-  searchTitle: string
+  searchName: string
 };
 
 export default class CatsList extends Component<Props, State>{
   constructor(props: Props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchName = this.onChangeSearchName.bind(this);
     this.retrieveCats = this.retrieveCats.bind(this);
-    this.searchTitle = this.searchTitle.bind(this);
+    this.searchName = this.searchName.bind(this);
 
     this.state = {
       cats: [],
       currentCat: null,
       currentIndex: -1,
-      searchTitle: ""
+      searchName: ""
     };
   }
 
@@ -30,11 +30,11 @@ export default class CatsList extends Component<Props, State>{
     this.retrieveCats();
   }
 
-  onChangeSearchTitle(e: ChangeEvent<HTMLInputElement>) {
-    const searchTitle = e.target.value;
+  onChangeSearchName(e: ChangeEvent<HTMLInputElement>) {
+    const searchName = e.target.value;
 
     this.setState({
-      searchTitle: searchTitle
+      searchName: searchName
     });
   }
 
@@ -68,13 +68,13 @@ export default class CatsList extends Component<Props, State>{
 
 
 
-  searchTitle() {
+  searchName() {
     this.setState({
       currentCat: null,
       currentIndex: -1
     });
 
-    CatDataService.findByTitle(this.state.searchTitle)
+    CatDataService.findByName(this.state.searchName)
       .then((response: any) => {
         this.setState({
           cats: response.data
@@ -87,7 +87,7 @@ export default class CatsList extends Component<Props, State>{
   }
 
   render() {
-    const { searchTitle, cats } = this.state;
+    const { searchName, cats } = this.state;
 
     return (
       <div className="list row">
@@ -97,16 +97,16 @@ export default class CatsList extends Component<Props, State>{
               type="text"
               className="form-control"
               placeholder="ID"
-              value={searchTitle}
-              onChange={this.onChangeSearchTitle}
+              value={searchName}
+              onChange={this.onChangeSearchName}
             />
             <div className="input-group-append">
               <button
                 className="btn btn-outline-secondary"
                 type="button"
-                onClick={this.searchTitle}
+                onClick={this.searchName}
               >
-                Search
+                Search by Name
               </button>
             </div>
           </div>

@@ -25,8 +25,8 @@ class CatDataService {
     return http.delete(`/cats`);
   }
 
-  findByTitle(title) {
-    return http.get(`/cats?title=${title}`);
+  findByName(name) {
+    return http.get(`/cats?name=${name}`);
   }
 }
 
