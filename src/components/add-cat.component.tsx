@@ -11,8 +11,7 @@ type State = ICatData & {
 export default class AddCat extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.onChangeTitle = this.onChangeTitle.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
+ 
     
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeSex = this.onChangeSex.bind(this);
@@ -29,8 +28,7 @@ export default class AddCat extends Component<Props, State> {
 
     this.state = {
       id: null,
-      title: "",
-      description: "",
+     
       published: false,
 
       name: "",
@@ -48,17 +46,7 @@ export default class AddCat extends Component<Props, State> {
     };
   }
 
-  onChangeTitle(e: ChangeEvent<HTMLInputElement>) {
-    this.setState({
-      title: e.target.value
-    });
-  }
 
-onChangeDescription(e: ChangeEvent<HTMLInputElement>) {
-    this.setState({
-      description: e.target.value
-    });
-  }
 
   onChangeName(e: ChangeEvent<HTMLInputElement>) {
     this.setState({
@@ -91,11 +79,7 @@ onChangeDescription(e: ChangeEvent<HTMLInputElement>) {
   }
 
   
-      onChangeMicrochip(e: ChangeEvent<HTMLInputElement>) {
-    this.setState({
-      microchip: e.target.value
-    });
-  }
+     
   onChangeCentre(e: ChangeEvent<HTMLInputElement>) {
     this.setState({
       centre: e.target.value
@@ -119,8 +103,7 @@ onChangeDescription(e: ChangeEvent<HTMLInputElement>) {
   
   saveCat() {
     const data: ICatData = {
-    title: this.state.title,
-    description: this.state.description,
+   
     
     name: this.state.name,
     sex: this.state.sex,
@@ -138,8 +121,7 @@ onChangeDescription(e: ChangeEvent<HTMLInputElement>) {
       .then((response: any) => {
         this.setState({
           id: response.data.id,
-          title: response.data.title,
-          description: response.data.description,
+         
           published: response.data.published,
 
           name: response.data.name,
@@ -165,8 +147,7 @@ onChangeDescription(e: ChangeEvent<HTMLInputElement>) {
   newCat() {
     this.setState({
       id: null,
-      title: "",
-      description: "",
+   
       published: false,
 
       name: "",
@@ -184,7 +165,7 @@ onChangeDescription(e: ChangeEvent<HTMLInputElement>) {
   }
 
   render() {
-    const { submitted, title, description, name, sex, breed,DOB,microchip,centre,status,image,remark} = this.state;
+    const { submitted,  name, sex, breed,DOB,microchip,centre,status,image,remark} = this.state;
 
     return (
       <div className="submit-form">
@@ -197,35 +178,7 @@ onChangeDescription(e: ChangeEvent<HTMLInputElement>) {
           </div>
         ) : (
           <div>
-            <div className="form-group">
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                className="form-control"
-                id="title"
-                required
-                value={title}
-                onChange={this.onChangeTitle}
-                name="title"
-              />
-            </div>
-
            
-            
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <input
-                type="text"
-                className="form-control"
-                id="description"
-                required
-                value={description}
-                onChange={this.onChangeDescription}
-                name="description"
-              />
-            </div>
-
-
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input

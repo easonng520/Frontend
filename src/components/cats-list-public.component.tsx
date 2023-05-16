@@ -8,21 +8,28 @@ type State = {
   cats: Array<ICatData>,
   currentCat: ICatData | null,
   currentIndex: number,
-  searchName: string
+  searchName: string,
+  filterCentre: string,
+  filterBreed: string,
 };
 
 export default class CatsList extends Component<Props, State>{
   constructor(props: Props) {
     super(props);
     this.onChangeSearchName = this.onChangeSearchName.bind(this);
+    
+
     this.retrieveCats = this.retrieveCats.bind(this);
     this.searchName = this.searchName.bind(this);
+
 
     this.state = {
       cats: [],
       currentCat: null,
       currentIndex: -1,
-      searchName: ""
+      searchName: "",
+      filterCentre: "*",
+      filterBreed:"*"
     };
   }
 
@@ -38,6 +45,8 @@ export default class CatsList extends Component<Props, State>{
     });
   }
 
+
+  
   retrieveCats() {
     CatDataService.getAll()
       .then((response: any) => {
@@ -91,7 +100,46 @@ export default class CatsList extends Component<Props, State>{
 
     return (
       <div className="list row">
-        <div className="col-md-12">
+
+
+              <div className="col-md-4">
+          <div className="input-group mb-3">
+  <label htmlFor="image">Filter by Centre :  </label>
+<select className="form-control" >
+  <option value="*">All Centre</option>
+  <option value="Hong Kong Centre">Hong Kong Centre</option>
+  <option value="Kowloon Centre">Kowloon Centre</option>
+  <option value="Mui Wo Clinic">Mui Wo Clinic</option>
+    <option value="Sai Kung Centre">Sai Kung Centre</option>
+</select>
+            
+           
+          </div>
+        </div>
+        
+              <div className="col-md-4">
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="ID"
+              value={searchName}
+              onChange={this.onChangeSearchName}
+            />
+            <div className="input-group-append">
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                onClick={this.searchName}
+              >
+                Search by Name
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        
+        <div className="col-md-4">
           <div className="input-group mb-3">
             <input
               type="text"
@@ -114,9 +162,7 @@ export default class CatsList extends Component<Props, State>{
 
 
         <div className="col-md-12">
-
-
-          <div className="card-columns text-secondary">
+ <div className="card-columns text-secondary">
             {cats.map((cat) => (
               <div key={cat.id} className="card ">
                 <img className="card-img-top" loading="lazy" src={'/images/' + cat.image} alt="Card image"></img>

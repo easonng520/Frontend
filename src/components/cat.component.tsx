@@ -5,7 +5,7 @@ import { withRouter } from '../common/with-router';
 class Cat extends Component {
   constructor(props) {
     super(props);
-    this.onChangeTitle = this.onChangeTitle.bind(this);
+    this.onChangeName = this.onChangeName.bind(this);
     this.onChangeImage = this.onChangeImage.bind(this);
     this.getCat = this.getCat.bind(this);
     this.updatePublished = this.updatePublished.bind(this);
@@ -15,7 +15,7 @@ class Cat extends Component {
     this.state = {
       currentCat: {
         id: null,
-        title: "",
+        name: "",
         image: "",
         published: false
       },
@@ -27,14 +27,14 @@ class Cat extends Component {
     this.getCat(this.props.router.params.id);
   }
 
-  onChangeTitle(e) {
-    const title = e.target.value;
+  onChangeName(e) {
+    const name = e.target.value;
 
     this.setState(function(prevState) {
       return {
         currentCat: {
           ...prevState.currentCat,
-          title: title
+          name: name
         }
       };
     });
@@ -67,7 +67,7 @@ class Cat extends Component {
   updatePublished(status) {
     var data = {
       id: this.state.currentCat.id,
-      title: this.state.currentCat.title,
+      name: this.state.currentCat.name,
       image: this.state.currentCat.image,
       published: status
     };
@@ -124,13 +124,13 @@ class Cat extends Component {
             <h4>Cat</h4>
             <form>
               <div className="form-group">
-                <label htmlFor="title">Title</label>
+                <label htmlFor="name">Name</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="title"
-                  value={currentCat.title}
-                  onChange={this.onChangeTitle}
+                  id="name"
+                  value={currentCat.name}
+                  onChange={this.onChangeName}
                 />
               </div>
               <div className="form-group">

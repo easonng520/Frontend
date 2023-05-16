@@ -9,24 +9,24 @@ type State = {
   cats: Array<ICatData>,
   currentCat: ICatData | null,
   currentIndex: number,
-  searchTitle: string
+  searchName: string
 };
 
 export default class CatsList extends Component<Props, State>{
   constructor(props: Props) {
     super(props);
-    this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
+    this.onChangeSearchName = this.onChangeSearchName.bind(this);
     this.retrieveCats = this.retrieveCats.bind(this);
     this.refreshList = this.refreshList.bind(this);
     this.setActiveCat = this.setActiveCat.bind(this);
     this.removeAllCats = this.removeAllCats.bind(this);
-    this.searchTitle = this.searchTitle.bind(this);
+    this.searchName = this.searchName.bind(this);
 
     this.state = {
       cats: [],
       currentCat: null,
       currentIndex: -1,
-      searchTitle: ""
+      searchName: ""
     };
   }
 
@@ -34,11 +34,11 @@ export default class CatsList extends Component<Props, State>{
     this.retrieveCats();
   }
 
-  onChangeSearchTitle(e: ChangeEvent<HTMLInputElement>) {
-    const searchTitle = e.target.value;
+  onChangeSearchName(e: ChangeEvent<HTMLInputElement>) {
+    const searchName = e.target.value;
 
     this.setState({
-      searchTitle: searchTitle
+      searchName: searchName
     });
   }
 
@@ -81,13 +81,13 @@ export default class CatsList extends Component<Props, State>{
       });
   }
 
-  searchTitle() {
+  searchName() {
     this.setState({
       currentCat: null,
       currentIndex: -1
     });
 
-    CatDataService.findByTitle(this.state.searchTitle)
+    CatDataService.findByName(this.state.searchName)
       .then((response: any) => {
         this.setState({
           cats: response.data
@@ -100,7 +100,7 @@ export default class CatsList extends Component<Props, State>{
   }
 
   render() {
-    const { searchTitle, cats, currentCat, currentIndex } = this.state;
+    const { searchName, cats, currentCat, currentIndex } = this.state;
 
     return (
       <div className="list row">
@@ -110,14 +110,14 @@ export default class CatsList extends Component<Props, State>{
               type="text"
               className="form-control"
               placeholder="Search by title"
-              value={searchTitle}
-              onChange={this.onChangeSearchTitle}
+              value={searchName}
+              onChange={this.onChangeSearchName}
             />
             <div className="input-group-append">
               <button
                 className="btn btn-outline-secondary"
                 type="button"
-                onClick={this.searchTitle}
+                onClick={this.searchName}
               >
                 Search
               </button>
@@ -138,7 +138,7 @@ export default class CatsList extends Component<Props, State>{
                   onClick={() => this.setActiveCat(cat, index)}
                   key={index}
                 >
-                  {cat.title}
+                  {cat.name}
                 </li>
               ))}
           </ul>
@@ -156,15 +156,15 @@ export default class CatsList extends Component<Props, State>{
               <h4>Cat</h4>
               <div>
                 <label>
-                  <strong>Title:</strong>
+                  <strong>Name:</strong>
                 </label>{" "}
-                {currentCat.title}
+                {currentCat.name}
               </div>
               <div>
                 <label>
-                  <strong>Description:</strong>
+                  <strong>Image:</strong>
                 </label>{" "}
-                {currentCat.description}
+                {currentCat.image}
               </div>
               <div>
                 <label>
