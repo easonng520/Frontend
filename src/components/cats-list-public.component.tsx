@@ -2,6 +2,9 @@ import { Component, ChangeEvent } from "react";
 import CatDataService from "../services/cat.service";
 import ICatData from '../types/cat.type';
 
+const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
+const breedList = ["Bengal Cross", "Chinchilla", "Domestic Short Hair", "Domestic Long Hair", "Scottish Fold"];
+
 type Props = {};
 
 type State = {
@@ -149,30 +152,30 @@ export default class CatsList extends Component<Props, State>{
   }
 
 
-
-
   render() {
     const { searchName, searchBreed, searchCentre, cats } = this.state;
 
     return (
       <div className="list row">
-
+        {/* Select Centre */}
         <div className="col-md-4">
           <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Centre"
-              value={searchCentre}
-              onChange={this.onChangeSearchCentre}
-            />
+            <select className="form-control" onChange={this.onChangeSearchCentre}  >
+<option  value=""> All Centre</option>
+              {centreList.map((centre) => (
+                <option key={centre} value={centre}>
+                  {centre}
+                </option>
+              ))}
+
+            </select>
             <div className="input-group-append">
               <button
                 className="btn btn-outline-secondary"
                 type="button"
                 onClick={this.searchCentre}
               >
-                Search by Centre
+                Filter by Centre
               </button>
             </div>
           </div>
@@ -181,24 +184,29 @@ export default class CatsList extends Component<Props, State>{
 
         <div className="col-md-4">
           <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Breed"
-              value={searchBreed}
-              onChange={this.onChangeSearchBreed}
-            />
+            <select className="form-control" onChange={this.onChangeSearchBreed} >
+            <option  value=""> All Breed</option>
+              {breedList.map((breed) => (
+                <option key={breed} value={breed}>
+                  {breed}
+                </option>
+              ))}
+
+            </select>
             <div className="input-group-append">
               <button
                 className="btn btn-outline-secondary"
                 type="button"
                 onClick={this.searchBreed}
               >
-                Search by Breed
+                Filter by Breed
               </button>
             </div>
           </div>
         </div>
+
+
+   
 
 
         <div className="col-md-4">
@@ -206,7 +214,7 @@ export default class CatsList extends Component<Props, State>{
             <input
               type="text"
               className="form-control"
-              placeholder="ID"
+              placeholder="Name"
               value={searchName}
               onChange={this.onChangeSearchName}
             />
