@@ -1,7 +1,9 @@
 import { Component, ChangeEvent } from "react";
 import CatDataService from "../services/cat.service";
 import ICatData from '../types/cat.type';
-
+const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
+const breedList = ["Bengal Cross", "Chinchilla", "Domestic Short Hair", "Domestic Long Hair", "Scottish Fold"];
+const sexList = ["Male", "Female"];
 type Props = {};
 
 type State = ICatData & {
@@ -72,14 +74,12 @@ export default class AddCat extends Component<Props, State> {
     });
   }
 
-      onChangeMicrochip(e: ChangeEvent<HTMLInputElement>) {
+  onChangeMicrochip(e: ChangeEvent<HTMLInputElement>) {
     this.setState({
       microchip: e.target.value
     });
   }
-
   
-     
   onChangeCentre(e: ChangeEvent<HTMLInputElement>) {
     this.setState({
       centre: e.target.value
@@ -103,8 +103,6 @@ export default class AddCat extends Component<Props, State> {
   
   saveCat() {
     const data: ICatData = {
-   
-    
     name: this.state.name,
     sex: this.state.sex,
     breed: this.state.breed,
@@ -114,16 +112,13 @@ export default class AddCat extends Component<Props, State> {
     status: this.state.status,
     image: this.state.image,
     remark: this.state.remark,
-      
     };
 
     CatDataService.create(data)
       .then((response: any) => {
         this.setState({
           id: response.data.id,
-         
           published: response.data.published,
-
           name: response.data.name,
           sex: response.data.sex,
           breed: response.data.breed,
@@ -133,8 +128,6 @@ export default class AddCat extends Component<Props, State> {
           status: response.data.status,
           image: response.data.image,
           remark: response.data.remark,
-
-          
           submitted: true
         });
         console.log(response.data);
@@ -185,8 +178,7 @@ export default class AddCat extends Component<Props, State> {
                 type="text"
                 className="form-control"
                 id="name"
-                
-                value={name}
+                 value={name}
                 onChange={this.onChangeName}
                 name="name"
               />
@@ -194,36 +186,45 @@ export default class AddCat extends Component<Props, State> {
 
       <div className="form-group">
               <label htmlFor="sex">Sex</label>
-              <input
-                type="text"
-                className="form-control"
-                id="sex"
-                
-                value={sex}
-                onChange={this.onChangeSex}
-                name="sex"
-              />
+        <select 
+                 className="form-control"
+               id="sex"
+              value={this.state.sex} 
+              onChange={this.onChangeSex}
+               
+             >
+             <option> - Please Select - </option>
+             {sexList.map((sex) => (
+              <option key={sex} value={sex}>
+                {sex}
+              </option>
+            ))}
+          </select>
             </div>
-
-
-            
+          
             <div className="form-group">
-              <label htmlFor="breed">Breed</label>
-              <input
-                type="text"
-                className="form-control"
-                id="breed"
-                
-                value={breed}
-                onChange={this.onChangeBreed}
-                name="breed"
-              />
+  <label htmlFor="breed">Breed</label>
+              <select 
+                 className="form-control"
+               id="breed"
+              value={this.state.breed} 
+              onChange={this.onChangeBreed}
+              >
+             <option> - Please Select - </option>
+             {breedList.map((breed) => (
+              <option key={breed} value={breed}>
+                {breed}
+              </option>
+            ))}
+          </select>
+              
+        
             </div>
 
                <div className="form-group">
               <label htmlFor="DOB">DOB</label>
               <input
-                type="text"
+                type="date"
                 className="form-control"
                 id="DOB"
                 
@@ -233,10 +234,10 @@ export default class AddCat extends Component<Props, State> {
               />
             </div>
 
-                        <div className="form-group">
+            <div className="form-group">
               <label htmlFor="microchip">Microchip</label>
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 id="microchip"
                 
@@ -248,15 +249,20 @@ export default class AddCat extends Component<Props, State> {
 
                <div className="form-group">
               <label htmlFor="centre">Centre</label>
-              <input
-                type="text"
-                className="form-control"
-                id="centre"
-                
-                value={centre}
-                onChange={this.onChangeCentre}
-                name="centre"
-              />
+                  <select 
+                 className="form-control"
+               id="breed"
+              value={this.state.centre} 
+              onChange={this.onChangeCentre}
+               
+             >
+             <option> - Please Select - </option>
+             {centreList.map((centre) => (
+              <option key={centre} value={centre}>
+                {centre}
+              </option>
+            ))}
+          </select>
             </div>
 
             

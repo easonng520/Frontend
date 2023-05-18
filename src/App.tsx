@@ -84,8 +84,7 @@ class App extends Component<Props, State> {
               </Link>
             </li>
 
-
-          <li className="nav-item">
+            <li className="nav-item">
               <Link to={"/cats"} className="nav-link">
                 Cats
               </Link>
@@ -95,14 +94,14 @@ class App extends Component<Props, State> {
                 Add
               </Link>
             </li>
-
             
             {showModeratorBoard && (
               <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Moderator Board
+                <Link to={"/cats"} className="nav-link">
+                  Cats List
                 </Link>
               </li>
+       
             )}
 
             {showAdminBoard && (
@@ -116,7 +115,7 @@ class App extends Component<Props, State> {
             {currentUser && (
               <li className="nav-item">
                 <Link to={"/user"} className="nav-link">
-                  User
+                  My Favourite
                 </Link>
               </li>
             )}
@@ -134,6 +133,13 @@ class App extends Component<Props, State> {
                   LogOut
                 </a>
               </li>
+
+   <li className="nav-item">
+                <a href="/" className="nav-link" onClick={this.logOut}>
+                  Contact Us
+                </a>
+              </li>
+              
             </div>
           ) : (
             <div className="navbar-nav ml-auto">

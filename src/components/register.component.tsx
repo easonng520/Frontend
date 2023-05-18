@@ -1,15 +1,16 @@
-import { Component } from "react";
+import { Component , ChangeEvent } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import AuthService from "../services/auth.service";
-
+const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
 type Props = {};
 
 type State = {
   username: string,
   email: string,
   password: string,
+  centre:string,
   successful: boolean,
   message: string
 };
@@ -18,16 +19,23 @@ export default class Register extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
-
+    this.onChangeCentre = this.onChangeCentre.bind(this);
     this.state = {
       username: "",
       email: "",
       password: "",
+      centre:"",
       successful: false,
       message: ""
     };
   }
 
+    onChangeCentre(e: ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      centre: e.target.value
+    });
+  }
+  
   validationSchema() {
     return Yup.object().shape({
       username: Yup.string()
@@ -55,11 +63,11 @@ export default class Register extends Component<Props, State> {
         .required("This field is required!"),
     });
   }
+ 
+  handleRegister(formValue: { username: string; email: string; password: string; centre: string }) {
+    const { username, email, password, centre } = formValue;
 
-  handleRegister(formValue: { username: string; email: string; password: string }) {
-    const { username, email, password } = formValue;
-
-    this.setState({
+   this.setState({
       message: "",
       successful: false
     });
@@ -67,7 +75,8 @@ export default class Register extends Component<Props, State> {
     AuthService.register(
       username,
       email,
-      password
+      password,
+      centre
     ).then(
       response => {
         this.setState({
@@ -80,10 +89,9 @@ export default class Register extends Component<Props, State> {
           (error.response &&
             error.response.data &&
             error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        this.setState({
+            error.message ||
+            error.toString();
+          this.setState({
           successful: false,
           message: resMessage
         });
@@ -98,6 +106,7 @@ export default class Register extends Component<Props, State> {
       username: "",
       email: "",
       password: "",
+      centre: "",
     };
 
     return (
@@ -151,6 +160,39 @@ export default class Register extends Component<Props, State> {
                     />
                   </div>
 
+{/*
+                  <div className="form-group">
+                    <label htmlFor="centre"> centre </label>
+                    <Field name="centre" type="text" className="form-control" />
+                    <ErrorMessage
+                      name="centre"
+                      component="div"
+                      className="alert alert-danger"
+                    />
+                  </div>
+
+                       */}
+               
+              <div className="form-group">
+              <label htmlFor="centre">Centre</label>
+              <select 
+               className="form-control"
+               id="centre"
+              value={this.state.centre} 
+              onChange={this.onChangeCentre}
+             
+             >
+             <option> - Please Select - </option>
+             {centreList.map((centre) => (
+              <option key={centre} value={centre}>
+                {centre}
+              </option>
+            ))}
+          </select>
+
+                  </div>
+
+                
                   <div className="form-group">
                     <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
                   </div>

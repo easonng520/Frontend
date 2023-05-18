@@ -34,6 +34,8 @@ export default class Login extends Component<Props, State> {
 
     if (currentUser) {
       this.setState({ redirect: "/profile" });
+      
+      
     };
   }
 
