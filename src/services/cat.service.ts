@@ -28,6 +28,15 @@ class CatDataService {
   findByName(name) {
     return http.get(`/cats?name=${name}`);
   }
+
+  findByCentre(centre) {
+    return http.get(`/cats/centre?centre=${centre}`);
+  }
+
+  findByBreed(breed) {
+    return http.get(`/cats/breed?breed=${breed}`);
+  }
+  
 }
 
 export default new CatDataService();

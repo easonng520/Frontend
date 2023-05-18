@@ -142,30 +142,64 @@ export default class CatsList extends Component<Props, State>{
                 </li>
               ))}
           </ul>
-
+          {/*}
           <button
             className="m-3 btn btn-sm btn-danger"
             onClick={this.removeAllCats}
           >
             Remove All
           </button>
+          */}
         </div>
         <div className="col-md-6">
           {currentCat ? (
             <div>
               <h4>Cat</h4>
+             
+               <div>
+                <label>
+                  <strong>Image:</strong>
+                </label>{" "}
+                {currentCat.image}
+              </div>
+              
               <div>
                 <label>
                   <strong>Name:</strong>
                 </label>{" "}
                 {currentCat.name}
               </div>
-              <div>
+
+               <div>
                 <label>
-                  <strong>Image:</strong>
+                  <strong>Centre:</strong>
                 </label>{" "}
-                {currentCat.image}
+                {currentCat.centre}
               </div>
+
+               <div>
+                <label>
+                  <strong>Breed:</strong>
+                </label>{" "}
+                {currentCat.breed}
+              </div>
+
+               <div>
+                <label>
+                  <strong>DOB:</strong>
+                </label>{" "}
+                {currentCat.DOB}
+              </div>
+
+              
+               <div>
+                <label>
+                  <strong>Microchip no:</strong>
+                </label>{" "}
+                {currentCat.microchip}
+              </div>
+
+              
               <div>
                 <label>
                   <strong>Status:</strong>

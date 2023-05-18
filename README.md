@@ -14,3 +14,4 @@ By default, Replit runs the `dev` script, but you can configure it by changing t
 
 git push origin main
 elephantsql.com
+DROP TABLE users,roles,user_roles,cats,centres,breeds

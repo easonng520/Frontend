@@ -2,6 +2,19 @@ import { Component, ChangeEvent } from "react";
 import CatDataService from "../services/cat.service";
 import ICatData from '../types/cat.type';
 
+  const [ setCentre] = useState(1);
+  const [centreList, breedList,setCentreList,setBreedList] = useState(3);
+
+const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic","Sai Kung Centre"];
+const breedList = ["Bengal Cross","Chinchilla","Domestic Short Hair","Domestic Long Hair","Scottish Fold"];
+
+
+
+  const centreListChange = (event) => {
+    setCentreList(event.target.value);
+    setCentre(1);
+  };
+
 type Props = {};
 
 type State = {
@@ -17,8 +30,8 @@ export default class CatsList extends Component<Props, State>{
   constructor(props: Props) {
     super(props);
     this.onChangeSearchName = this.onChangeSearchName.bind(this);
-    this.onChangeSearchCentre = this.onChangeSearchCentre.bind(this);
-    this.onChangeSearchBreed = this.onChangeSearchBreed.bind(this);
+    //this.onChangeSearchCentre = this.onChangeSearchCentre.bind(this);
+    //this.onChangeSearchBreen = this.onChangeSearchBreen.bind(this);
     this.retrieveCats = this.retrieveCats.bind(this);
     this.searchName = this.searchName.bind(this);
     this.searchCentre = this.searchCentre.bind(this);
@@ -30,40 +43,42 @@ export default class CatsList extends Component<Props, State>{
       currentCat: null,
       currentIndex: -1,
       searchName: "",
-      searchCentre: "",
-      searchBreed: ""
+      //searchCentre: "Kowloon Centre",
+      searchBreed:"Domestic Short Hair"
     };
   }
 
   componentDidMount() {
     this.retrieveCats();
+    
   }
 
   //onChangeSearchName
   onChangeSearchName(e: ChangeEvent<HTMLInputElement>) {
     const searchName = e.target.value;
     this.setState({
-      searchName: searchName
+    searchName: searchName
     });
   }
 
   //onChangeSearchCentre
+ /*
   onChangeSearchCentre(e: ChangeEvent<HTMLInputElement>) {
     const searchCentre = e.target.value;
     this.setState({
-      searchCentre: searchCentre
+    searchCentre: searchCentre
     });
   }
-
+*/
   //onChangeSearchBreed
   onChangeSearchBreed(e: ChangeEvent<HTMLInputElement>) {
     const searchBreed = e.target.value;
     this.setState({
-      searchBreed: searchBreed
+    searchBreed: searchBreed
     });
   }
 
-
+  
   retrieveCats() {
     CatDataService.getAll()
       .then((response: any) => {
@@ -93,7 +108,7 @@ export default class CatsList extends Component<Props, State>{
   }
 
 
-  //searchName
+//searchName
   searchName() {
     this.setState({
       currentCat: null,
@@ -111,8 +126,10 @@ export default class CatsList extends Component<Props, State>{
         console.log(e);
       });
   }
-  //  searchCentre
-  searchCentre() {
+  
+//  searchCentre
+ /*
+ searchCentre() {
     this.setState({
       currentCat: null,
       currentIndex: -1
@@ -128,8 +145,8 @@ export default class CatsList extends Component<Props, State>{
         console.log(e);
       });
   }
-
-  //searchBreed
+*/  
+//searchBreed
   searchBreed() {
     this.setState({
       currentCat: null,
@@ -149,36 +166,31 @@ export default class CatsList extends Component<Props, State>{
   }
 
 
-
+  
 
   render() {
     const { searchName, searchBreed, searchCentre, cats } = this.state;
 
     return (
-      <div className="list row">
+      <div className="list row mt-3">
 
-        <div className="col-md-4">
+        { /*Centre */}
+        
+      <div className="col-md-4">
           <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Centre"
-              value={searchCentre}
-              onChange={this.onChangeSearchCentre}
-            />
-            <div className="input-group-append">
-              <button
-                className="btn btn-outline-secondary"
-                type="button"
-                onClick={this.searchCentre}
-              >
-                Search by Centre
-              </button>
-            </div>
+              {"Items per Page: "}
+          <select      className="form-control" onChange={handlePageSizeChange} value={centreList}>
+            {centreList.map((centre) => (
+              <option key={centre} value={centre}>
+                {centre}
+              </option>
+            ))}
+          </select>
+
           </div>
         </div>
 
-
+           { /*Breed */}     
         <div className="col-md-4">
           <div className="input-group mb-3">
             <input
@@ -199,8 +211,8 @@ export default class CatsList extends Component<Props, State>{
             </div>
           </div>
         </div>
-
-
+        
+        
         <div className="col-md-4">
           <div className="input-group mb-3">
             <input
@@ -224,16 +236,16 @@ export default class CatsList extends Component<Props, State>{
 
 
         <div className="col-md-12">
-          <div className="card-columns text-secondary">
+ <div className="card-columns text-secondary">
             {cats.map((cat) => (
               <div key={cat.id} className="card ">
-                <img className="card-img-top" src={'/images/' + cat.image} alt="Card image"></img>
+                <img className="card-img-top"  src={'/images/' + cat.image} alt="Card image"></img>
                 <div className="card-body">
                   <h5 className="card-title">{cat.name}</h5>
-                  <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
-                  <i className="fab fa-github"></i>{' ' + cat.breed}<br />
-                  <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
-                  <i className="fas fa-microchip"></i>{' ' + cat.microchip}
+                <i className="fas fa-map-marked-alt"></i>{' ' +cat.centre}<br />
+                 <i className="fab fa-github"></i>{' ' + cat.breed}<br />
+               <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
+                 <i className="fas fa-microchip"></i>{' ' + cat.microchip}
 
                 </div>
               </div>

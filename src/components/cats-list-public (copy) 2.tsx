@@ -17,8 +17,8 @@ export default class CatsList extends Component<Props, State>{
   constructor(props: Props) {
     super(props);
     this.onChangeSearchName = this.onChangeSearchName.bind(this);
-    this.onChangeSearchCentre = this.onChangeSearchCentre.bind(this);
-    this.onChangeSearchBreed = this.onChangeSearchBreed.bind(this);
+    //this.onChangeSearchCentre = this.onChangeSearchCentre.bind(this);
+    //this.onChangeSearchBreen = this.onChangeSearchBreen.bind(this);
     this.retrieveCats = this.retrieveCats.bind(this);
     this.searchName = this.searchName.bind(this);
     this.searchCentre = this.searchCentre.bind(this);
@@ -31,7 +31,7 @@ export default class CatsList extends Component<Props, State>{
       currentIndex: -1,
       searchName: "",
       searchCentre: "",
-      searchBreed: ""
+      searchBreed:""
     };
   }
 
@@ -43,7 +43,7 @@ export default class CatsList extends Component<Props, State>{
   onChangeSearchName(e: ChangeEvent<HTMLInputElement>) {
     const searchName = e.target.value;
     this.setState({
-      searchName: searchName
+    searchName: searchName
     });
   }
 
@@ -51,7 +51,7 @@ export default class CatsList extends Component<Props, State>{
   onChangeSearchCentre(e: ChangeEvent<HTMLInputElement>) {
     const searchCentre = e.target.value;
     this.setState({
-      searchCentre: searchCentre
+    searchCentre: searchCentre
     });
   }
 
@@ -59,11 +59,11 @@ export default class CatsList extends Component<Props, State>{
   onChangeSearchBreed(e: ChangeEvent<HTMLInputElement>) {
     const searchBreed = e.target.value;
     this.setState({
-      searchBreed: searchBreed
+    searchBreed: searchBreed
     });
   }
 
-
+  
   retrieveCats() {
     CatDataService.getAll()
       .then((response: any) => {
@@ -93,7 +93,7 @@ export default class CatsList extends Component<Props, State>{
   }
 
 
-  //searchName
+//searchName
   searchName() {
     this.setState({
       currentCat: null,
@@ -111,7 +111,7 @@ export default class CatsList extends Component<Props, State>{
         console.log(e);
       });
   }
-  //  searchCentre
+//  searchCentre
   searchCentre() {
     this.setState({
       currentCat: null,
@@ -128,8 +128,8 @@ export default class CatsList extends Component<Props, State>{
         console.log(e);
       });
   }
-
-  //searchBreed
+  
+//searchBreed
   searchBreed() {
     this.setState({
       currentCat: null,
@@ -149,37 +149,31 @@ export default class CatsList extends Component<Props, State>{
   }
 
 
-
+  
 
   render() {
-    const { searchName, searchBreed, searchCentre, cats } = this.state;
+    const { searchName, searchBreed,searchCentre, cats } = this.state;
 
     return (
       <div className="list row">
 
-        <div className="col-md-4">
+
+              <div className="col-md-4">
           <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Centre"
-              value={searchCentre}
-              onChange={this.onChangeSearchCentre}
-            />
-            <div className="input-group-append">
-              <button
-                className="btn btn-outline-secondary"
-                type="button"
-                onClick={this.searchCentre}
-              >
-                Search by Centre
-              </button>
-            </div>
+  <label htmlFor="image">Filter by Centre :  </label>
+<select className="form-control" >
+  <option value="*">All Centre</option>
+  <option value="Hong Kong Centre">Hong Kong Centre</option>
+  <option value="Kowloon Centre">Kowloon Centre</option>
+  <option value="Mui Wo Clinic">Mui Wo Clinic</option>
+    <option value="Sai Kung Centre">Sai Kung Centre</option>
+</select>
+            
+           
           </div>
         </div>
-
-
-        <div className="col-md-4">
+        
+              <div className="col-md-4">
           <div className="input-group mb-3">
             <input
               type="text"
@@ -199,8 +193,8 @@ export default class CatsList extends Component<Props, State>{
             </div>
           </div>
         </div>
-
-
+        
+        
         <div className="col-md-4">
           <div className="input-group mb-3">
             <input
@@ -224,16 +218,16 @@ export default class CatsList extends Component<Props, State>{
 
 
         <div className="col-md-12">
-          <div className="card-columns text-secondary">
+ <div className="card-columns text-secondary">
             {cats.map((cat) => (
               <div key={cat.id} className="card ">
-                <img className="card-img-top" src={'/images/' + cat.image} alt="Card image"></img>
+                <img className="card-img-top"  src={'/images/' + cat.image} alt="Card image"></img>
                 <div className="card-body">
                   <h5 className="card-title">{cat.name}</h5>
-                  <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
-                  <i className="fab fa-github"></i>{' ' + cat.breed}<br />
-                  <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
-                  <i className="fas fa-microchip"></i>{' ' + cat.microchip}
+                <i className="fas fa-map-marked-alt"></i>{' ' +cat.centre}<br />
+                 <i className="fab fa-github"></i>{' ' + cat.breed}<br />
+               <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
+                 <i className="fas fa-microchip"></i>{' ' + cat.microchip}
 
                 </div>
               </div>
