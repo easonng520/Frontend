@@ -8,7 +8,7 @@ import IUser from './types/user.type';
 
 import Login from "./components/login.component";
 import Register from "./components/register.component";
-import Home from "./components/home.component";
+//import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
@@ -20,6 +20,8 @@ import Cat from "./components/cat.component";
 import CatsList from "./components/cats-list.component";
 import CatsListPublic from "./components/cats-list-public.component";
 import EventBus from "./common/EventBus";
+
+import Upload from "./components/upload.component";
 
 type Props = {};
 

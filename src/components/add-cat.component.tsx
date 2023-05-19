@@ -13,8 +13,6 @@ type State = ICatData & {
 export default class AddCat extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
- 
-    
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeSex = this.onChangeSex.bind(this);
     this.onChangeBreed = this.onChangeBreed.bind(this);
