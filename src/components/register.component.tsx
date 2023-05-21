@@ -1,9 +1,11 @@
 import { Component , ChangeEvent } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
 import AuthService from "../services/auth.service";
-const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
+import MultiSelect from "./select.component";
+
+
+
 type Props = {};
 
 type State = {
@@ -19,7 +21,7 @@ export default class Register extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
-    this.onChangeCentre = this.onChangeCentre.bind(this);
+ 
     this.state = {
       username: "",
       email: "",
@@ -30,11 +32,7 @@ export default class Register extends Component<Props, State> {
     };
   }
 
-    onChangeCentre(e: ChangeEvent<HTMLInputElement>) {
-    this.setState({
-      centre: e.target.value
-    });
-  }
+   
   
   validationSchema() {
     return Yup.object().shape({
@@ -159,38 +157,23 @@ export default class Register extends Component<Props, State> {
                       className="alert alert-danger"
                     />
                   </div>
-
-{/*
-                  <div className="form-group">
-                    <label htmlFor="centre"> centre </label>
-                    <Field name="centre" type="text" className="form-control" />
-                    <ErrorMessage
-                      name="centre"
-                      component="div"
-                      className="alert alert-danger"
-                    />
-                  </div>
-
-                       */}
-               
-              <div className="form-group">
-              <label htmlFor="centre">Centre</label>
-              <select 
-               className="form-control"
-               id="centre"
-              value={this.state.centre} 
-              onChange={this.onChangeCentre}
-             
-             >
-             <option> - Please Select - </option>
-             {centreList.map((centre) => (
-              <option key={centre} value={centre}>
-                {centre}
-              </option>
-            ))}
-          </select>
-
-                  </div>
+<div className="form-group">
+                    <label htmlFor="centre"> Centre </label>
+                  <Field
+    name="centre"
+    id="centre"
+    placeholder=" - Please Select - "
+    isMulti={false}
+    component={MultiSelect}
+   
+  options={[
+        { value: 'Hong Kong Centre', label: 'Hong Kong Centre' },
+        { value: 'Kowloon Centre', label: 'Kowloon Centre' },
+        { value: 'Mui Wo Clinic', label: 'Mui Wo Clinic' },
+  { value: 'Sai Kung Centre', label: 'Sai Kung Centre' },
+    ]}
+/>
+ </div>                 
 
                 
                   <div className="form-group">

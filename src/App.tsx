@@ -14,7 +14,6 @@ import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 
-
 import AddCat from "./components/add-cat.component";
 import Cat from "./components/cat.component";
 import CatsList from "./components/cats-list.component";
