@@ -1,6 +1,7 @@
-import { Component, ChangeEvent } from "react";
+import React, { Component, ChangeEvent } from "react";
 import CatDataService from "../services/cat.service";
 import ICatData from '../types/cat.type';
+import { withRouter } from '../common/with-router';
 
 const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
 const breedList = ["Bengal Cross", "Chinchilla", "Domestic Short Hair", "Domestic Long Hair", "Scottish Fold"];
@@ -237,13 +238,13 @@ export default class CatsList extends Component<Props, State>{
               <div key={cat.id} className="card ">
                 <img className="card-img-top" src={'/images/' + cat.image} alt="Card image"></img>
                 <div className="card-body">
-                  <h5 className="card-title">{cat.name}</h5>
+                 
+                  <h5 className="card-title"><i className="btn fas fa-heart   text-danger"></i><i className="btn far fa-heart text-danger"></i> {cat.name}</h5>
+                
                   <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
                   <i className="fab fa-github"></i>{' ' + cat.breed}<br />
                   <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
                   <i className="fas fa-microchip"></i>{' ' + cat.microchip}
-
-                  
 
                 </div>
               </div>

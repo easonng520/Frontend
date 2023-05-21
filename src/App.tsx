@@ -113,11 +113,9 @@ class App extends Component<Props, State> {
                 Add Cat
               </Link>
               </li>
-        
-       
-            )
-            
+           )   
             }
+            
 
             {showAdminBoard && (
               <li className="nav-item">
