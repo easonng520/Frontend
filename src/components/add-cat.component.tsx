@@ -1,6 +1,7 @@
 import { Component, ChangeEvent } from "react";
 import CatDataService from "../services/cat.service";
 import ICatData from '../types/cat.type';
+import * as Yup from "yup";
 const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
 const breedList = ["Bengal Cross", "Chinchilla", "Domestic Short Hair", "Domestic Long Hair", "Scottish Fold"];
 const sexList = ["Male", "Female"];
@@ -28,9 +29,7 @@ export default class AddCat extends Component<Props, State> {
 
     this.state = {
       id: null,
-     
       published: false,
-
       name: "",
       sex:"",
       breed:"",
@@ -40,15 +39,10 @@ export default class AddCat extends Component<Props, State> {
       status:"",        
       image: "",
       remark:"", 
-      
       submitted: false
-     
     };
   }
-
-
-
-  onChangeName(e: ChangeEvent<HTMLInputElement>) {
+ onChangeName(e: ChangeEvent<HTMLInputElement>) {
     this.setState({
       name: e.target.value
     });
@@ -138,9 +132,7 @@ export default class AddCat extends Component<Props, State> {
   newCat() {
     this.setState({
       id: null,
-   
       published: false,
-
       name: "",
       sex: "",
       breed: "",
@@ -150,7 +142,6 @@ export default class AddCat extends Component<Props, State> {
       status: "",
       image: "",
       remark: "",
-      
       submitted: false
     });
   }
@@ -189,7 +180,6 @@ export default class AddCat extends Component<Props, State> {
                id="sex"
               value={this.state.sex} 
               onChange={this.onChangeSex}
-               
              >
              <option> - Please Select - </option>
              {sexList.map((sex) => (
@@ -215,9 +205,7 @@ export default class AddCat extends Component<Props, State> {
               </option>
             ))}
           </select>
-              
-        
-            </div>
+          </div>
 
                <div className="form-group">
               <label htmlFor="DOB">DOB</label>
@@ -277,8 +265,7 @@ export default class AddCat extends Component<Props, State> {
               />
             </div>
 
-
-                    <div className="form-group">
+            <div className="form-group">
               <label htmlFor="remark">Remark</label>
               <input
                 type="text"

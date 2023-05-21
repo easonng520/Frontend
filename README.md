@@ -17,3 +17,4 @@ elephantsql.com
 
 rm .git/index.lock
 DROP TABLE users,roles,user_roles,cats,centres,breeds
+SELECT * FROM "public"."cats" where id IN (12,9,15,3,1)

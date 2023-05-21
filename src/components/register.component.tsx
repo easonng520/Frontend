@@ -4,8 +4,6 @@ import * as Yup from "yup";
 import AuthService from "../services/auth.service";
 import MultiSelect from "./select.component";
 
-
-
 type Props = {};
 
 type State = {
@@ -31,9 +29,7 @@ export default class Register extends Component<Props, State> {
       message: ""
     };
   }
-
-   
-  
+ 
   validationSchema() {
     return Yup.object().shape({
       username: Yup.string()
@@ -158,7 +154,7 @@ export default class Register extends Component<Props, State> {
                     />
                   </div>
 <div className="form-group">
-                    <label htmlFor="centre"> Centre </label>
+                    <label htmlFor="centre"> Centre (Charity Worker)</label>
                   <Field
     name="centre"
     id="centre"

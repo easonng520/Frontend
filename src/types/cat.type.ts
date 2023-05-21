@@ -1,8 +1,6 @@
 export default interface ICatData {
   id?: any | null,
-
   published?: boolean,
-    
   name:string,
   sex: string,
   breed: string,

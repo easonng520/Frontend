@@ -243,6 +243,8 @@ export default class CatsList extends Component<Props, State>{
                   <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
                   <i className="fas fa-microchip"></i>{' ' + cat.microchip}
 
+                  
+
                 </div>
               </div>
             ))}

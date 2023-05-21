@@ -71,14 +71,14 @@ class App extends Component<Props, State> {
 
   render() {
     const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
-
-    return (
+   return (
       <div>
           <nav className="navbar navbar-expand fixed-top border-bottom navbar-light bg-light p-2">
           <Link to={"/"} className="navbar-brand">
             loveCATS
           </Link>
           <div className="navbar-nav mr-auto">
+            {/*
             <li className="nav-item">
               <Link to={"/home"} className="nav-link">
                 Home
@@ -95,15 +95,29 @@ class App extends Component<Props, State> {
                 Add
               </Link>
             </li>
-            
+            */}
             {showModeratorBoard && (
               <li className="nav-item">
                 <Link to={"/cats"} className="nav-link">
-                  Cats List
+                  List Cats
                 </Link>
               </li>
+        
        
-            )}
+            )
+            
+            }
+            {showModeratorBoard && (
+              <li className="nav-item">
+               <Link to={"/add"} className="nav-link">
+                Add Cat
+              </Link>
+              </li>
+        
+       
+            )
+            
+            }
 
             {showAdminBoard && (
               <li className="nav-item">
@@ -115,11 +129,12 @@ class App extends Component<Props, State> {
 
             {currentUser && (
               <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
+                <Link to={"/Favourite"} className="nav-link">
                   My Favourite
                 </Link>
               </li>
             )}
+            
           </div>
 
           {currentUser ? (
@@ -136,7 +151,7 @@ class App extends Component<Props, State> {
               </li>
 
    <li className="nav-item">
-                <a href="/" className="nav-link" onClick={this.logOut}>
+                <a href="/contactUs" className="nav-link" onClick={this.logOut}>
                   Contact Us
                 </a>
               </li>
@@ -163,13 +178,14 @@ class App extends Component<Props, State> {
           <Routes>
             <Route path="/" element={<CatsListPublic />} />
             <Route path="/Home" element={<CatsListPublic />} />
+             <Route path="/uplaod" element={<Upload />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/user" element={<BoardUser />} />
             <Route path="/mod" element={<BoardModerator />} />
             <Route path="/admin" element={<BoardAdmin />} />
-
+           <Route path="/Favourite" element={<CatsListPublic />} />
 
             <Route path="/" element={<CatsList/>} />
             <Route path="/cats" element={<CatsList/>} />

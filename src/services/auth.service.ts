@@ -1,8 +1,5 @@
 import axios from "axios";
-
 const API_URL = "https://backend.easonng520.repl.co/api/auth/";
-
-
 class AuthService {
   login(username: string, password: string) {
     return axios
@@ -31,8 +28,6 @@ class AuthService {
       centre
     });
   }
-   
-
   getCurrentUser() {
     const userStr = localStorage.getItem("user");
     if (userStr) return JSON.parse(userStr);
