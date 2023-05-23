@@ -1,18 +1,15 @@
 import React, { Component, ChangeEvent } from "react";
 import CatDataService from "../services/cat.service";
 import ICatData from '../types/cat.type';
-import { withRouter } from '../common/with-router';
-
 const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
 const breedList = ["Bengal Cross", "Chinchilla", "Domestic Short Hair", "Domestic Long Hair", "Scottish Fold"];
-
 type Props = {};
-
 type State = {
   cats: Array<ICatData>,
   currentCat: ICatData | null,
   currentIndex: number,
   searchName: string,
+  showAll: string,
   searchCentre: string,
   searchBreed: string,
 };
@@ -25,15 +22,15 @@ export default class CatsList extends Component<Props, State>{
     this.onChangeSearchBreed = this.onChangeSearchBreed.bind(this);
     this.retrieveCats = this.retrieveCats.bind(this);
     this.searchName = this.searchName.bind(this);
+    this.showAll = this.showAll.bind(this);
     this.searchCentre = this.searchCentre.bind(this);
     this.searchBreed = this.searchBreed.bind(this);
-
-
     this.state = {
       cats: [],
       currentCat: null,
       currentIndex: -1,
       searchName: "",
+      showAll:"",
       searchCentre: "",
       searchBreed: ""
     };
@@ -66,8 +63,6 @@ export default class CatsList extends Component<Props, State>{
       searchBreed: searchBreed
     });
   }
-
-
   retrieveCats() {
     CatDataService.getAll()
       .then((response: any) => {
@@ -115,6 +110,27 @@ export default class CatsList extends Component<Props, State>{
         console.log(e);
       });
   }
+
+    //searchName
+  showAll() {
+    this.setState({
+      currentCat: null,
+      currentIndex: -1
+    });
+
+    CatDataService.getAll()
+      .then((response: any) => {
+        this.setState({
+          cats: response.data
+        });
+        console.log(response.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+  }
+
+  
   //  searchCentre
   searchCentre() {
     this.setState({
@@ -154,14 +170,14 @@ export default class CatsList extends Component<Props, State>{
 
 
   render() {
-    const { searchName, searchBreed, searchCentre, cats } = this.state;
+    const { searchName,showAll, searchBreed, searchCentre, cats } = this.state;
 
     return (
       <div className="list row">
         {/* Select Centre */}
-        <div className="col-md-4">
+        <div className="col-md-3">
           <div className="input-group mb-3">
-            <select className="form-control" onChange={this.onChangeSearchCentre}  >
+            <select className="form-control" onChange={this.onChangeSearchCentre}    value={searchCentre}>
 <option  value=""> All Centre</option>
               {centreList.map((centre) => (
                 <option key={centre} value={centre}>
@@ -182,10 +198,9 @@ export default class CatsList extends Component<Props, State>{
           </div>
         </div>
 
-
-        <div className="col-md-4">
+        <div className="col-md-3">
           <div className="input-group mb-3">
-            <select className="form-control" onChange={this.onChangeSearchBreed} >
+            <select className="form-control" onChange={this.onChangeSearchBreed}    value={searchBreed}>
             <option  value=""> All Breed</option>
               {breedList.map((breed) => (
                 <option key={breed} value={breed}>
@@ -206,11 +221,7 @@ export default class CatsList extends Component<Props, State>{
           </div>
         </div>
 
-
-   
-
-
-        <div className="col-md-4">
+        <div className="col-md-3">
           <div className="input-group mb-3">
             <input
               type="text"
@@ -231,27 +242,35 @@ export default class CatsList extends Component<Props, State>{
           </div>
         </div>
 
-
+<div className="col-md-3">
+          <div className="input-group mb-3">
+                       
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                onClick={this.showAll}
+              >
+                Show All
+              </button>
+           
+          </div>
+        </div>
+        
         <div className="col-md-12">
           <div className="card-columns text-secondary">
             {cats.map((cat) => (
               <div key={cat.id} className="card ">
                 <img className="card-img-top" src={'/images/' + cat.image} alt="Card image"></img>
                 <div className="card-body">
-                 
-                  <h5 className="card-title"><i className="btn fas fa-heart   text-danger"></i><i className="btn far fa-heart text-danger"></i> {cat.name}</h5>
-                
-                  <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
-                  <i className="fab fa-github"></i>{' ' + cat.breed}<br />
-                  <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
-                  <i className="fas fa-microchip"></i>{' ' + cat.microchip}
-
+                <h5 className="card-title">{cat.name} <i className="btn disabled far  fa-heart text-danger"></i></h5>
+                <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
+                <i className="fab fa-github"></i>{' ' + cat.breed}<br />
+                <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
+                <i className="fas fa-microchip"></i>{' ' + cat.microchip}
                 </div>
               </div>
             ))}
           </div>
-
-
 
         </div>
 
