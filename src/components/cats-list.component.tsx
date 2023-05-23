@@ -5,9 +5,6 @@ import ICatData from '../types/cat.type';
 //import { Navigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import IUser from "../types/user.type";
-
- 
-
 type Props = {};
 type State = {
   cats: Array<ICatData>,
@@ -19,7 +16,6 @@ type State = {
   currentUserCentre:string
 };
 
-
 export default class CatsList extends Component<Props, State>{
   constructor(props: Props) {
     super(props);
@@ -29,7 +25,7 @@ export default class CatsList extends Component<Props, State>{
       currentCat: null,
       currentIndex: -1,
       redirect: null,
-       userReady: false,
+      userReady: false,
       currentUser: { accessToken: "" },
       currentUserCentre:"centre"
     };
@@ -61,98 +57,29 @@ export default class CatsList extends Component<Props, State>{
   render() {
     const {  cats, currentCat, currentIndex ,currentUser} = this.state;
     return (
-      <div className="list row">
-       
-        <div className="col-md-6">
-          <h4>Cats List</h4>
-          <ul className="list-group">
-            {cats &&
-              cats.map((cat: ICatData, index: number) => (
-                <li
-                  className={
-                    "list-group-item " +
-                    (index === currentIndex ? "active" : "")
-                  }
-                  onClick={() => this.setActiveCat(cat, index)}
-                  key={index}
-                >
-                  {cat.name}
-                </li>
-              ))}
-          </ul>
-          
-        </div>
-        <div className="col-md-6">
-          {currentCat ? (
-            <div>
-              <h4>Cat</h4>
+
+           <div className="col-md-12">
              
-               <div>
-                <label>
-                  <strong>Image:</strong>
-                </label>{" "}
-                {currentCat.image}
-              </div>
-              
-              <div>
-                <label>
-                  <strong>Name:</strong>
-                </label>{" "}
-                {currentCat.name}
-              </div>
-
-               <div>
-                <label>
-                  <strong>Centre:</strong>
-                </label>{" "}
-                {currentCat.centre}
-              </div>
-
-               <div>
-                <label>
-                  <strong>Breed:</strong>
-                </label>{" "}
-                {currentCat.breed}
-              </div>
-
-               <div>
-                <label>
-                  <strong>DOB:</strong>
-                </label>{" "}
-                {currentCat.DOB}
-              </div>
-
-              
-               <div>
-                <label>
-                  <strong>Microchip no:</strong>
-                </label>{" "}
-                {currentCat.microchip}
-              </div>
-
-              
-              <div>
-                <label>
-                  <strong>Status:</strong>
-                </label>{" "}
-                {currentCat.published ? "Published" : "Pending"}
-              </div>
-
-              <Link
-                to={"/cats/" + currentCat.id}
-                className="badge badge-warning"
-              >
-                Edit
-              </Link>
-            </div>
-          ) : (
-            <div>
-              <br />
-              <p>Please click on a Cat...</p>
-            </div>
-          )}
+          <div className="card-columns text-secondary">
+           
+          {cats &&
+              cats.map((cat: ICatData, index: number) => (
+          
+                <div key={cat.id} className="card" >
+                <img className="card-img-top" src={'/images/' + cat.image} alt="Card image"></img>
+    <div className="card-body">
+      <Link to={"/cats/" + cat.id} >  <h5 className="card-title">{cat.name} <i className="btn disabled fas fa-edit "></i></h5></Link>
+                    <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
+                    <i className="fab fa-github"></i>{' ' + cat.breed}<br />
+                    <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
+                    <i className="fas fa-microchip"></i>{' ' + cat.microchip}
+  </div>
+     </div>
+             
+              ))}
         </div>
-      </div>
+        </div>
+
     );
   }
 }

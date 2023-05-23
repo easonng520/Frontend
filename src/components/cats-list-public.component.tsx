@@ -271,9 +271,9 @@ export default class CatsList extends Component<Props, State>{
               </div>
             ))}
           </div>
-
         </div>
 
+        
       </div>
     );
   }

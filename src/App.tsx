@@ -99,7 +99,7 @@ class App extends Component<Props, State> {
             {showModeratorBoard && (
               <li className="nav-item">
                 <Link to={"/cats"} className="nav-link">
-                  List Cats
+                   List of {currentUser.centre}
                 </Link>
               </li>
         

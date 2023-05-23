@@ -10,6 +10,8 @@ class UserService {
 
   getUserBoard() {
     return axios.get(API_URL + 'user', { headers: authHeader() });
+
+    
   }
 
   getModeratorBoard() {
