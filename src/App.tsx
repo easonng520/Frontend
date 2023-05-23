@@ -74,7 +74,7 @@ class App extends Component<Props, State> {
    return (
       <div>
           <nav className="navbar navbar-expand fixed-top border-bottom navbar-light bg-light p-2">
-          <Link to={"/"} className="navbar-brand">
+          <Link to={"/Home"} className="navbar-brand">
             loveCATS
           </Link>
           <div className="navbar-nav mr-auto">
