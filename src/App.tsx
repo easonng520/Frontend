@@ -78,15 +78,9 @@ class App extends Component<Props, State> {
             loveCATS
           </Link>
           <div className="navbar-nav mr-auto">
-           
+       
             <li className="nav-item">
               <Link to={"/FileUpload"} className="nav-link">
-                FileUpload
-              </Link>
-            </li>
- 
-            <li className="nav-item">
-              <Link to={"/upload"} className="nav-link">
                 Upload
               </Link>
             </li>
