@@ -59,24 +59,25 @@ export default class CatsList extends Component<Props, State>{
     return (
 
            <div className="col-md-12">
-             
-          <div className="card-columns text-secondary">
-           
+             <div className="card-columns text-secondary">
           {cats &&
               cats.map((cat: ICatData, index: number) => (
-          
+          <Link  className="text-secondary" to={"/cats/" + cat.id} >
                 <div key={cat.id} className="card" >
+                  
                 <img className="card-img-top" src={'/images/' + cat.image} alt="Card image"></img>
     <div className="card-body">
-      <Link to={"/cats/" + cat.id} >  <h5 className="card-title">{cat.name} <i className="btn disabled fas fa-edit "></i></h5></Link>
+      <h5 className="card-title">{cat.name} <i className="btn disabled fas fa-edit "></i></h5>
                     <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
                     <i className="fab fa-github"></i>{' ' + cat.breed}<br />
                     <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
                     <i className="fas fa-microchip"></i>{' ' + cat.microchip}
   </div>
      </div>
-             
+           </Link>  
               ))}
+
+            
         </div>
         </div>
 

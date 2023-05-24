@@ -2,25 +2,57 @@ import React, { Component } from "react";
 import CatDataService from "../services/cat.service";
 import { withRouter } from '../common/with-router';
 
+import AuthService from "../services/auth.service";
+import IUser from "../types/user.type";
+
+const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
+const breedList = ["Bengal Cross", "Chinchilla", "Domestic Short Hair", "Domestic Long Hair", "Scottish Fold"];
+const sexList = ["Male", "Female"];
+
+type Props = {};
+type State = {
+  userReady: boolean,
+  currentUser: IUser & { accessToken: string },
+  currentUserCentre:string
+};
+
+
+
+
 class Cat extends Component {
   constructor(props) {
     super(props);
-    this.onChangeImage = this.onChangeImage.bind(this);
     this.onChangeName = this.onChangeName.bind(this);
-   // this.onChangeCentre = this.onChangeCentre.bind(this);
-    //this.onChangeBreed = this.onChangeBreed.bind(this);
+    this.onChangeSex = this.onChangeSex.bind(this);
+    this.onChangeBreed = this.onChangeBreed.bind(this);
+    this.onChangeDOB = this.onChangeDOB.bind(this);
+    this.onChangeMicrochip = this.onChangeMicrochip.bind(this);
+    this.onChangeCentre = this.onChangeCentre.bind(this);
+    this.onChangeStatus = this.onChangeStatus.bind(this);
+    this.onChangeImage = this.onChangeImage.bind(this);
+    this.onChangeRemark = this.onChangeRemark.bind(this);
+   
     this.getCat = this.getCat.bind(this);
     this.updatePublished = this.updatePublished.bind(this);
     this.updateCat = this.updateCat.bind(this);
     this.deleteCat = this.deleteCat.bind(this);
 
     this.state = {
+     userReady: false,
+      currentUser: { accessToken: "" },
+      currentUserCentre:"centre",
+      
       currentCat: {
         id: null,
-        image: "",
-        name: "",
-        centre:"",
-        breed:"",
+    name: "",
+      sex:"",
+      breed:"",
+      DOB:"",   
+      microchip:"",
+      centre:"",
+      status:"",        
+      image: "",
+      remark:"",
         published: false
       },
       message: ""
@@ -28,23 +60,17 @@ class Cat extends Component {
   }
 
   componentDidMount() {
+ const currentUser = AuthService.getCurrentUser();
+     if (!currentUser) this.setState({ redirect: "/home" });
+    this.setState({ currentUser: currentUser, userReady: true })
+
+    
+    
     this.getCat(this.props.router.params.id);
   }
 
-    onChangeImage(e) {
-    const image = e.target.value;
-    
-    this.setState(prevState => ({
-      currentCat: {
-        ...prevState.currentCat,
-        image: image
-      }
-    }));
-  }
-  
-  onChangeName(e) {
+ onChangeName(e) {
     const name = e.target.value;
-
     this.setState(function(prevState) {
       return {
         currentCat: {
@@ -56,18 +82,6 @@ class Cat extends Component {
   }
 
 
-  onChangeCentre(e) {
-    const centre = e.target.value;
-    
-    this.setState(prevState => ({
-      currentCat: {
-        ...prevState.currentCat,
-        centre: centre
-      }
-    }));
-  }
-
-  
   onChangeBreed(e) {
     const breed = e.target.value;
     
@@ -80,6 +94,87 @@ class Cat extends Component {
   }
 
   
+ onChangeSex(e) {
+    const sex = e.target.value;
+    this.setState(function(prevState) {
+      return {
+        currentCat: {
+          ...prevState.currentCat,
+          sex: sex
+        }
+      };
+    });
+  }
+
+  onChangeDOB(e) {
+    const DOB = e.target.value;
+    this.setState(function(prevState) {
+      return {
+        currentCat: {
+          ...prevState.currentCat,
+          DOB: DOB
+        }
+      };
+    });
+  } 
+
+    onChangeMicrochip(e) {
+    const Microchip = e.target.value;
+    this.setState(function(prevState) {
+      return {
+        currentCat: {
+          ...prevState.currentCat,
+          Microchip: Microchip
+        }
+      };
+    });
+  } 
+
+onChangeCentre(e) {
+    const centre = e.target.value;
+    
+    this.setState(prevState => ({
+      currentCat: {
+        ...prevState.currentCat,
+        centre: centre
+      }
+    }));
+  }
+
+  onChangeStatus(e) {
+    const status = e.target.value;
+    
+    this.setState(prevState => ({
+      currentCat: {
+        ...prevState.currentCat,
+        status: status
+      }
+    }));
+  }
+  
+  onChangeImage(e) {
+    const image = e.target.value;
+    
+    this.setState(prevState => ({
+      currentCat: {
+        ...prevState.currentCat,
+        image: image
+      }
+    }));
+  }
+  
+   
+  onChangeRemark(e) {
+    const remark = e.target.value;
+    
+    this.setState(prevState => ({
+      currentCat: {
+        ...prevState.currentCat,
+        remark: remark
+      }
+    }));
+  }
+
   getCat(id) {
     CatDataService.get(id)
       .then(response => {
@@ -154,17 +249,6 @@ class Cat extends Component {
           <div className="edit-form">
             <h4>Cat</h4>
             <form>
-             
-              <div className="form-group">
-                <label htmlFor="image">Image</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="image"
-                  value={currentCat.image}
-                  onChange={this.onChangeImage}
-                />
-              </div>
               
               <div className="form-group">
                 <label htmlFor="name">Name</label>
@@ -176,30 +260,86 @@ class Cat extends Component {
                   onChange={this.onChangeName}
                 />
               </div>
-             
-          
-   <div className="form-group">
-                <label htmlFor="centre">Centre</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="centre"
-                  value={currentCat.centre}
-                  onChange={this.onChangeCentre}
-                />
-              </div> 
 
+              <div className="form-group">
+              <label htmlFor="sex">Sex</label>
+        <select 
+                 className="form-control"
+               id="sex"
+              value={currentCat.sex} 
+              onChange={this.onChangeSex}
+             >
+             <option> - Please Select - </option>
+             {sexList.map((sex) => (
+              <option key={sex} value={sex}>
+                {sex}
+              </option>
+            ))}
+          </select>
+            </div>
+
+
+<div className="form-group">
+  <label htmlFor="breed">Breed</label>
+              <select 
+                 className="form-control"
+               id="breed"
+              value={this.state.breed} 
+              onChange={this.onChangeBreed}
+              >
+             <option> - Please Select - </option>
+             {breedList.map((breed) => (
+              <option key={breed} value={breed}>
+                {breed}
+              </option>
+            ))}
+          </select>
+          </div>
+
+
+            <div className="form-group">
+              <label htmlFor="DOB">DOB</label>
+              <input
+                type="date"
+                className="form-control"
+                id="DOB"
+                value={currentCat.DOB}
+                onChange={this.onChangeDOB}
+                name="DOB"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="microchip">Microchip</label>
+              <input
+                type="number"
+                className="form-control"
+                id="microchip"
+                
+               
+                onChange={this.onChangeMicrochip}
+                name="microchip"
+              />
+            </div>    
+
+  
                  <div className="form-group">
-                <label htmlFor="breed">Breed</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="breed"
-                  value={currentCat.breed}
-                  onChange={this.onChangeBreed}
-                />
-              </div> 
-              
+              <label htmlFor="image">Image</label>
+              <input
+                type="text"
+                className="form-control"
+                id="image"
+                
+                value={currentCat.image}
+                onChange={this.onChangeImage}
+                name="image"
+              />
+            </div>
+
+                  
+  
+
+                
               
               <div className="form-group">
                 <label>
