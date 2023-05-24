@@ -8,7 +8,7 @@ import IUser from './types/user.type';
 
 import Login from "./components/login.component";
 import Register from "./components/register.component";
-//import Home from "./components/home.component";
+import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
@@ -78,24 +78,25 @@ class App extends Component<Props, State> {
             loveCATS
           </Link>
           <div className="navbar-nav mr-auto">
-            {/*
+           
             <li className="nav-item">
               <Link to={"/home"} className="nav-link">
                 Home
               </Link>
             </li>
-
+ 
             <li className="nav-item">
-              <Link to={"/cats"} className="nav-link">
-                Cats
+              <Link to={"/upload"} className="nav-link">
+                Upload
               </Link>
             </li>
+            
             <li className="nav-item">
               <Link to={"/add"} className="nav-link">
                 Add
               </Link>
             </li>
-            */}
+          
             {showModeratorBoard && (
               <li className="nav-item">
                 <Link to={"/cats"} className="nav-link">
@@ -175,7 +176,7 @@ class App extends Component<Props, State> {
         <div className="container pt-3 mt-5 pb-3 mb-5 " >
           <Routes>
             <Route path="/" element={<CatsListPublic />} />
-            <Route path="/Home" element={<CatsListPublic />} />
+            <Route path="/home" element={<CatsListPublic />} />
              <Route path="/uplaod" element={<Upload />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -183,7 +184,7 @@ class App extends Component<Props, State> {
             <Route path="/user" element={<BoardUser />} />
             <Route path="/mod" element={<BoardModerator />} />
             <Route path="/admin" element={<BoardAdmin />} />
-           <Route path="/Favourite" element={<CatsListPublic />} />
+           <Route path="/favourite" element={<CatsListPublic />} />
 
             <Route path="/" element={<CatsList/>} />
             <Route path="/cats" element={<CatsList/>} />
