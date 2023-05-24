@@ -11,7 +11,6 @@ const upload = (file: File, onUploadProgress: any): Promise<any> => {
     },
     onUploadProgress,
   });
-  
 };
 
 const getFiles = () : Promise<any> => {

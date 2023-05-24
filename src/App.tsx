@@ -20,7 +20,7 @@ import CatsList from "./components/cats-list.component";
 import CatsListPublic from "./components/cats-list-public.component";
 import EventBus from "./common/EventBus";
 
-import Upload from "./components/upload.component";
+import FileUpload from "./components/FileUpload";
 
 type Props = {};
 
@@ -74,14 +74,14 @@ class App extends Component<Props, State> {
    return (
       <div>
           <nav className="navbar navbar-expand fixed-top border-bottom navbar-light bg-light p-2">
-          <Link to={"/Home"} className="navbar-brand">
+          <Link to={"/home"} className="navbar-brand">
             loveCATS
           </Link>
           <div className="navbar-nav mr-auto">
            
             <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                Home
+              <Link to={"/FileUpload"} className="nav-link">
+                FileUpload
               </Link>
             </li>
  
@@ -176,8 +176,8 @@ class App extends Component<Props, State> {
         <div className="container pt-3 mt-5 pb-3 mb-5 " >
           <Routes>
             <Route path="/" element={<CatsListPublic />} />
-            <Route path="/home" element={<CatsListPublic />} />
-             <Route path="/uplaod" element={<Upload />} />
+            <Route path="/FileUpload" element={<FileUpload />} />
+             
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
