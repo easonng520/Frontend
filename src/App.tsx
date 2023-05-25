@@ -12,9 +12,12 @@ import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
-import CatsListfavourites from "./components/cats-list-favourites.component";
+
 import AddCat from "./components/add-cat.component";
 import Cat from "./components/cat.component";
+
+import CatsListCentre from "./components/cats-list-centre.component";
+import CatsListFavourites from "./components/cats-list-favourites.component";
 import CatsListStaff from "./components/cats-list-staff.component";
 import CatsListUser from "./components/cats-list-user.component";
 import CatsListPublic from "./components/cats-list-public.component";
@@ -111,23 +114,7 @@ class App extends Component<Props, State> {
             </li>
           */}
             
-            {showModeratorBoard && (
-              <li className="nav-item">
-                <Link to={"/cats"} className="nav-link">
-                   List of {currentUser.centre}
-                </Link>
-              </li>
-            )
-            
-            }
-            {showModeratorBoard && (
-              <li className="nav-item">
-               <Link to={"/add"} className="nav-link">
-                Add Cat
-              </Link>
-              </li>
-           )   
-            }
+          
             
 
             {showAdminBoard && (
@@ -146,6 +133,25 @@ class App extends Component<Props, State> {
                 </Link>
               </li>
             )}
+
+
+            {showModeratorBoard && (
+              <li className="nav-item">
+                <Link to={"/CatsListCentre"} className="nav-link">
+                   List of {currentUser.centre}
+                </Link>
+              </li>
+            )
+            
+            }
+            {showModeratorBoard && (
+              <li className="nav-item">
+               <Link to={"/add"} className="nav-link">
+                Add Cat
+              </Link>
+              </li>
+           )   
+            }
             
           </div>
 
@@ -208,8 +214,9 @@ class App extends Component<Props, State> {
             <Route path="/user" element={<BoardUser />} />
             <Route path="/mod" element={<BoardModerator />} />
             <Route path="/admin" element={<BoardAdmin />} />
-            <Route path="/CatsListfavourites" element={<CatsListfavourites />} />
+            <Route path="/CatsListFavourites" element={<CatsListFavourites />} />
             <Route path="/CatsListUser" element={<CatsListUser/>} />
+             <Route path="/CatsListCentre" element={<CatsListCentre/>} />
             <Route path="/cats" element={<CatsListStaff/>} />
             <Route path="/add" element={<AddCat/>} />
             <Route path="/cats/:id" element={<Cat/>} />

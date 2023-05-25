@@ -40,7 +40,7 @@ export default class CatsList extends Component<Props, State>{
         this.setState({
           cats: response.data
         });
-        console.log(response.data);
+        console.log(currentUser.centre);
       })
       .catch((e: Error) => {
         console.log(e);
@@ -59,11 +59,12 @@ export default class CatsList extends Component<Props, State>{
     return (
 
            <div className="col-md-12">
+             <div>List of Centre</div>
              <div className="card-columns text-secondary">
           {cats &&
               cats.map((cat: ICatData, index: number) => (
-          <Link  className="text-secondary" to={"/cats/" + cat.id} >
-                <div key={cat.id} className="card" >
+          <Link  key={cat.id} className="text-secondary" to={"/cats/" + cat.id} >
+                <div  className="card" >
                   
                 <img className="card-img-top" src={'/images/' + cat.image} alt="Card image"></img>
     <div className="card-body">

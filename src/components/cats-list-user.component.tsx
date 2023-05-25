@@ -35,7 +35,7 @@ export default class CatsList extends Component<Props, State>{
      if (!currentUser) this.setState({ redirect: "/home" });
     this.setState({ currentUser: currentUser, userReady: true })
 
-    CatDataService. findByCentre(currentUser.centre)
+    CatDataService.getAll()
       .then((response: any) => {
         this.setState({
           cats: response.data
@@ -59,6 +59,7 @@ export default class CatsList extends Component<Props, State>{
     return (
 
            <div className="col-md-12">
+              <div>List of Cats</div>
              <div className="card-columns text-secondary">
           {cats &&
               cats.map((cat: ICatData, index: number) => (

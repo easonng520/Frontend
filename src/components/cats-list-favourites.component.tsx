@@ -13,7 +13,7 @@ type State = {
   redirect: string | null,
   userReady: boolean,
   currentUser: IUser & { accessToken: string },
-  currentUserCentre:string
+  //currentUserFavourites:string
 };
 
 export default class CatsList extends Component<Props, State>{
@@ -27,20 +27,24 @@ export default class CatsList extends Component<Props, State>{
       redirect: null,
       userReady: false,
       currentUser: { accessToken: "" },
-      currentUserCentre:"centre"
+      //currentUserFavourites:"favourites"
     };
   }
   componentDidMount() {
      const currentUser = AuthService.getCurrentUser();
-     if (!currentUser) this.setState({ redirect: "/" });
+     if (!currentUser) this.setState({ redirect: "/home" });
     this.setState({ currentUser: currentUser, userReady: true })
 
-    CatDataService. findByCentre(currentUser.centre)
+    
+ console.log(currentUser.favourites);
+     console.log(currentUser.centre);
+    
+    CatDataService.CatsListFavourites(currentUser.favourites)
       .then((response: any) => {
         this.setState({
           cats: response.data
         });
-        console.log(response.data);
+       
       })
       .catch((e: Error) => {
         console.log(e);
@@ -58,23 +62,24 @@ export default class CatsList extends Component<Props, State>{
     const {  cats, currentCat, currentIndex ,currentUser} = this.state;
     return (
 
-           <div className="col-md-12">My Favourite List
+           <div className="col-md-12">
+             <div>List of Favourites</div>
              <div className="card-columns text-secondary">
           {cats &&
               cats.map((cat: ICatData, index: number) => (
-      
-                <div  key={cat.id} className="card" >
+          <Link  key={cat.id} className="text-secondary" to={"/cats/" + cat.id} >
+                <div  className="card" >
                   
                 <img className="card-img-top" src={'/images/' + cat.image} alt="Card image"></img>
-    <div  className="card-body">
-      <h5 className="card-title">{cat.name} <i className="fas  fa-heart text-danger"></i></h5>
+    <div className="card-body">
+      <h5 className="card-title">{cat.name} <i className="btn far  fa-heart text-danger"></i></h5>
                     <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
                     <i className="fab fa-github"></i>{' ' + cat.breed}<br />
                     <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
                     <i className="fas fa-microchip"></i>{' ' + cat.microchip}
   </div>
      </div>
-         
+           </Link>  
               ))}
 
             

@@ -4,5 +4,6 @@ export default interface IUser {
   email?: string,
   password?: string,
   centre?: string,
+  favourites?: string,
   roles?: Array<string>
 }

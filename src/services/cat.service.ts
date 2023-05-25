@@ -36,7 +36,11 @@ class CatDataService {
   findByBreed(breed) {
     return http.get(`/cats/breed?breed=${breed}`);
   }
-  
+
+
+  CatsListFavourites(list) {
+    return http.get(`/cats/CatsListfavourites?list=${list}`);
+  }
 }
 
 export default new CatDataService();

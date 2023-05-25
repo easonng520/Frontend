@@ -10,7 +10,8 @@ type State = {
   username: string,
   password: string,
   loading: boolean,
-  message: string
+  message: string,
+  favourites:string
 };
 
 export default class Login extends Component<Props, State> {
@@ -23,7 +24,8 @@ export default class Login extends Component<Props, State> {
       username: "",
       password: "",
       loading: false,
-      message: ""
+      message: "",
+      favourites:""
     };
   }
 
@@ -57,7 +59,7 @@ if (currentUser) {
     AuthService.login(username, password).then(
       () => {
         this.setState({
-          redirect: "/catslistuser"
+          redirect: "/CatsListUser"
         });
       },
       error => {

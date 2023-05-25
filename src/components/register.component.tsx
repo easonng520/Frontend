@@ -12,7 +12,8 @@ type State = {
   password: string,
   centre:string,
   successful: boolean,
-  message: string
+  message: string,
+  favourites:string
 };
 
 export default class Register extends Component<Props, State> {
@@ -26,7 +27,8 @@ export default class Register extends Component<Props, State> {
       password: "",
       centre:"",
       successful: false,
-      message: ""
+      message: "",
+      favourites:""
     };
   }
  
@@ -58,8 +60,8 @@ export default class Register extends Component<Props, State> {
     });
   }
  
-  handleRegister(formValue: { username: string; email: string; password: string; centre: string }) {
-    const { username, email, password, centre } = formValue;
+  handleRegister(formValue: { username: string; email: string; password: string; centre: string; favourites: string }) {
+    const { username, email, password, centre,favourites } = formValue;
 
    this.setState({
       message: "",
@@ -70,7 +72,8 @@ export default class Register extends Component<Props, State> {
       username,
       email,
       password,
-      centre
+      centre,
+      favourites
     ).then(
       response => {
         this.setState({
@@ -101,6 +104,7 @@ export default class Register extends Component<Props, State> {
       email: "",
       password: "",
       centre: "",
+      favourites:""
     };
 
     return (
@@ -120,6 +124,8 @@ export default class Register extends Component<Props, State> {
             <Form>
               {!successful && (
                 <div>
+         
+                  
                   <div className="form-group">
                     <label htmlFor="username"> Username </label>
                     <Field name="username" type="text" className="form-control" />
