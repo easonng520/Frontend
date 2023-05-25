@@ -14,7 +14,7 @@ const upload = (file: File, onUploadProgress: any): Promise<any> => {
 };
 
 const getFiles = () : Promise<any> => {
-  return http.get("/upload");
+  return http.get("/files");
 };
 
 const FileUploadService = {
