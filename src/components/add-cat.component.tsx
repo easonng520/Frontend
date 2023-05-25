@@ -1,7 +1,8 @@
-import { Component, ChangeEvent } from "react";
+import { Component, ChangeEvent,useState, useEffect } from "react";
 import CatDataService from "../services/cat.service";
 import ICatData from '../types/cat.type';
 import * as Yup from "yup";
+
 const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
 const breedList = ["Bengal Cross", "Chinchilla", "Domestic Short Hair", "Domestic Long Hair", "Scottish Fold"];
 const sexList = ["Male", "Female"];
@@ -12,6 +13,7 @@ type State = ICatData & {
 };
 
 export default class AddCat extends Component<Props, State> {
+ 
   constructor(props: Props) {
     super(props);
     this.onChangeName = this.onChangeName.bind(this);
@@ -42,6 +44,8 @@ export default class AddCat extends Component<Props, State> {
       submitted: false
     };
   }
+
+  
  onChangeName(e: ChangeEvent<HTMLInputElement>) {
     this.setState({
       name: e.target.value
@@ -92,7 +96,9 @@ export default class AddCat extends Component<Props, State> {
       remark: e.target.value
     });
   }
-  
+
+
+
   saveCat() {
     const data: ICatData = {
     name: this.state.name,
@@ -146,10 +152,19 @@ export default class AddCat extends Component<Props, State> {
     });
   }
 
+
+
+
+
   render() {
+
+
+    
     const { submitted,  name, sex, breed,DOB,microchip,centre,status,image,remark} = this.state;
 
     return (
+
+      
       <div className="submit-form">
         {submitted ? (
           <div>
@@ -159,8 +174,25 @@ export default class AddCat extends Component<Props, State> {
             </button>
           </div>
         ) : (
+
+
+
+
+        
           <div>
-           
+            {/*
+             <div className="card mt-3">
+        <div className="card-header">List of Files</div>
+        <ul className="list-group list-group-flush">
+          {fileInfos &&
+            fileInfos.map((file, index) => (
+              <li className="list-group-item" key={index}>
+                <a href={file.url}>{file.name}</a>
+              </li>
+            ))}
+        </ul>
+      </div>
+       */}     
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input

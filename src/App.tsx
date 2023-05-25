@@ -5,18 +5,18 @@ import "./App.css";
 
 import AuthService from "./services/auth.service";
 import IUser from './types/user.type';
-
+import Contact from "./components/contact.component";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
-import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
-
+import CatsListfavourites from "./components/cats-list-favourites.component";
 import AddCat from "./components/add-cat.component";
 import Cat from "./components/cat.component";
-import CatsList from "./components/cats-list.component";
+import CatsListStaff from "./components/cats-list-staff.component";
+import CatsListUser from "./components/cats-list-user.component";
 import CatsListPublic from "./components/cats-list-public.component";
 import EventBus from "./common/EventBus";
 
@@ -73,12 +73,31 @@ class App extends Component<Props, State> {
     const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
    return (
       <div>
-          <nav className="navbar navbar-expand fixed-top border-bottom navbar-light bg-light p-2">
-          <Link to={"/home"} className="navbar-brand">
-            loveCATS
-          </Link>
-          <div className="navbar-nav mr-auto">
-       
+      <nav className="navbar navbar-expand fixed-top border-bottom navbar-light bg-light p-2">
+      {currentUser ? (
+      <Link to={"/CatsListUser"} className="navbar-brand">loveCATS</Link>
+       ) : (
+       <Link to={"/"} className="navbar-brand">loveCATS</Link>
+        )}
+
+        <div className="navbar-nav mr-auto">
+        {currentUser ? (
+        
+      <li className="nav-item">
+                <Link to={"/CatsListUser"} className="nav-link">
+                  Home
+                </Link>
+              </li>
+        
+          ) : (
+
+     <li className="nav-item">
+                <Link to={"/"} className="nav-link">
+             Home
+                </Link>
+              </li>
+          )}
+            {/*
             <li className="nav-item">
               <Link to={"/FileUpload"} className="nav-link">
                 Upload
@@ -90,15 +109,14 @@ class App extends Component<Props, State> {
                 Add
               </Link>
             </li>
-          
+          */}
+            
             {showModeratorBoard && (
               <li className="nav-item">
                 <Link to={"/cats"} className="nav-link">
                    List of {currentUser.centre}
                 </Link>
               </li>
-        
-       
             )
             
             }
@@ -121,8 +139,9 @@ class App extends Component<Props, State> {
             )}
 
             {currentUser && (
+        
               <li className="nav-item">
-                <Link to={"/Favourite"} className="nav-link">
+                <Link to={"/CatsListfavourites"} className="nav-link">
                   My Favourite
                 </Link>
               </li>
@@ -131,26 +150,36 @@ class App extends Component<Props, State> {
           </div>
 
           {currentUser ? (
+        
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
+                 <span  className="nav-link">
+                  {currentUser.username}
+                </span>
+                {/*
                 <Link to={"/profile"} className="nav-link">
                   {currentUser.username}
                 </Link>
+                */}
               </li>
-              <li className="nav-item">
-                <a href="/" className="nav-link" onClick={this.logOut}>
-                  LogOut
+            
+
+   <li className="nav-item">
+                <a href="/contact" className="nav-link">
+                  Contact Us
                 </a>
               </li>
 
-   <li className="nav-item">
-                <a href="/contactUs" className="nav-link" onClick={this.logOut}>
-                  Contact Us
+  <li className="nav-item">
+                <a href="/" className="nav-link" onClick={this.logOut}>
+                  Log Out
                 </a>
               </li>
               
             </div>
           ) : (
+
+        
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/login"} className="nav-link">
@@ -170,18 +199,18 @@ class App extends Component<Props, State> {
         <div className="container pt-3 mt-5 pb-3 mb-5 " >
           <Routes>
             <Route path="/" element={<CatsListPublic />} />
+             <Route path="/home" element={<CatsListPublic />} />
             <Route path="/FileUpload" element={<FileUpload />} />
-             
+              <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/user" element={<BoardUser />} />
             <Route path="/mod" element={<BoardModerator />} />
             <Route path="/admin" element={<BoardAdmin />} />
-           <Route path="/favourite" element={<CatsListPublic />} />
-
-            <Route path="/" element={<CatsList/>} />
-            <Route path="/cats" element={<CatsList/>} />
+            <Route path="/CatsListfavourites" element={<CatsListfavourites />} />
+            <Route path="/CatsListUser" element={<CatsListUser/>} />
+            <Route path="/cats" element={<CatsListStaff/>} />
             <Route path="/add" element={<AddCat/>} />
             <Route path="/cats/:id" element={<Cat/>} />
             

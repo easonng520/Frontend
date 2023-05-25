@@ -57,7 +57,7 @@ if (currentUser) {
     AuthService.login(username, password).then(
       () => {
         this.setState({
-          redirect: "/home"
+          redirect: "/catslistuser"
         });
       },
       error => {

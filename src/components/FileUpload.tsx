@@ -88,18 +88,25 @@ const FileUpload: React.FC = () => {
           {message}
         </div>
       )}
-
-      <div className="card mt-3">
-        <div className="card-header">List of Files</div>
-        <ul className="list-group list-group-flush">
-          {fileInfos &&
+    
+      <div className="mt-3 col-md-12">
+    <p >List of Photos</p>
+          <div className="card-columns text-secondary">
+              {fileInfos &&
             fileInfos.map((file, index) => (
-              <li className="list-group-item" key={index}>
+           
+              <div key={index} className="card ">
+                <img className="card-img-top" src={file.url} alt="Card image" ></img>
+                
                 <a href={file.url}>{file.name}</a>
-              </li>
+           </div>
             ))}
-        </ul>
-      </div>
+      
+            </div>
+         </div>
+
+
+      
     </div>
   );
 };

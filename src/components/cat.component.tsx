@@ -335,12 +335,7 @@ onChangeCentre(e) {
                 name="image"
               />
             </div>
-
-                  
-  
-
-                
-              
+          
               <div className="form-group">
                 <label>
                   <strong>Status:</strong>
