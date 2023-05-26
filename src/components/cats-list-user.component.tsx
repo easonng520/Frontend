@@ -65,23 +65,25 @@ export default class CatsList extends Component<Props, State>{
    const array = JSON.parse("["+favourites+"]");
     //console.log(array)
 let result = array.map(i=>Number(i));
-    const arrayOfLetters = result;
+
+  
+const arrayOfLetters = result;
 const arrayWithoutD = arrayOfLetters.filter(function (letter) {
     return letter !== userid;
 });
-
-// arrayOfLetters is unchanged
-console.log(arrayOfLetters); // ['a', 'b', 'c', 'd', 'e', 'f']
-console.log(arrayWithoutD); // ['a', 'b', 'c', 'e', 'f']
-
-  console.log('userid:'+userid);
-  console.log('catid:'+catid);
-  
     favourites=('favourites='+arrayWithoutD)
     console.log(favourites)
-  //favourites=('favourites=1,2,3,4')
-  
-FavouritesService.update(catid,favourites )
+
+
+
+if(!result.includes(userid)){          //checking weather array contain the id
+    result.push(userid);               //adding to array because value doesnt exists
+}else{
+    result.splice(result.indexOf(userid), 1);  //deleting
+}
+console.log(result.toString());
+
+FavouritesService.update(catid,'favourites='+result.toString() )
       .then(response => {
         console.log(response.data);
         this.setState({
@@ -332,18 +334,16 @@ let result = array.map(i=>Number(i));
                     if(isFavourites) {
                             return (
               
-  <i className=" fas fa-heart text-danger"></i>
+  <i className="btn fas fa-heart text-danger"
+    onClick=  {() => this.updateFavourites(cat.id,currentUser.id,cat.favourites)}
+    ></i>
                             )
                         }  else {
                             return (
                   
                                <i className="btn far fa-heart text-danger"
                                  onClick=  {() => this.updateFavourites(cat.id,currentUser.id,cat.favourites)}
-
-
-                                 
                                  ></i>
-                          
                            )
                         }  
                 })()  
