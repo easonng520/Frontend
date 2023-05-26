@@ -202,7 +202,7 @@ class App extends Component<Props, State> {
           )}
         </nav>
 
-        <div className="container pt-3 mt-5 pb-3 mb-5 " >
+        <div className="container-fluid pt-3 mt-5 pb-3 mb-5 " >
           <Routes>
             <Route path="/" element={<CatsListPublic />} />
              <Route path="/home" element={<CatsListPublic />} />

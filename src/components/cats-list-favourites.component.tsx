@@ -72,7 +72,7 @@ export default class CatsList extends Component<Props, State>{
                   
                 <img className="card-img-top" src={'/images/' + cat.image} alt="Card image"></img>
     <div className="card-body">
-      <h5 className="card-title">{cat.name} <i className="btn far  fa-heart text-danger"></i></h5>
+      <h5 className="card-title">{cat.name} <i className=" fas fa-heart text-danger"></i></h5>
                     <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
                     <i className="fab fa-github"></i>{' ' + cat.breed}<br />
                     <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
