@@ -53,9 +53,9 @@ export default class CatsList extends Component<Props, State>{
     this.setState({ currentUser: currentUser, userReady: true })
 
     
- console.log(currentUser.email);
-     console.log(currentUser.username);
-     console.log(currentUser.id);
+ //console.log(currentUser.email);
+   //  console.log(currentUser.username);
+     //console.log(currentUser.id);
     
     
     this.retrieveCats();
@@ -91,6 +91,7 @@ export default class CatsList extends Component<Props, State>{
           cats: response.data
         });
         console.log(response.data);
+        
       })
       .catch((e: Error) => {
         console.log(e);
@@ -190,10 +191,15 @@ export default class CatsList extends Component<Props, State>{
   }
 
 
+  
   render() {
     const { searchName,showAll, searchBreed, searchCentre, cats,currentUser } = this.state;
+     
 
+      
     return (
+
+        
       <div className="list row">
         {/* Select Centre */}
         <div className="col-md-3">
@@ -286,7 +292,37 @@ export default class CatsList extends Component<Props, State>{
               <div  className="card ">
                 <img className="card-img-top" src={'https://backend.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
                 <div className="card-body">
-                <h5 className="card-title">{cat.name} <i className="far  fa-heart text-danger"></i></h5>
+                <h5 className="card-title">{cat.name+" "} 
+
+                  {console.log(currentUser.id)}
+ {console.log(cat.favourites)}
+                  
+                  {
+                    
+                (() => {
+                   const array = JSON.parse("["+cat.favourites+"]");
+    //console.log(array)
+let result = array.map(i=>Number(i));
+
+                  const isFavourites = array.includes(currentUser.id);
+                  if(isFavourites) {
+                            return (
+                               <i className=" fas fa-heart text-danger"></i>
+                            )
+                        }  else {
+                            return (
+                                <i className=" far fa-heart text-danger"></i>
+                            )
+                        }
+                })()  
+            }  
+
+                  
+                 
+
+                
+                
+                </h5>
                 <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
                 <i className="fab fa-github"></i>{' ' + cat.breed}<br />
                 <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
@@ -294,7 +330,10 @@ export default class CatsList extends Component<Props, State>{
                 </div>
               </div>
        </Link>
-            ))}
+            )
+                     
+                     
+                     )}
      
           </div>
             
