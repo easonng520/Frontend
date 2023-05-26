@@ -1,13 +1,8 @@
 import React, { Component, ChangeEvent } from "react";
 import CatDataService from "../services/cat.service";
 import ICatData from '../types/cat.type';
-import { Link } from "react-router-dom";
-import AuthService from "../services/auth.service";
-import IUser from "../types/user.type";
-
 const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
 const breedList = ["Bengal Cross", "Chinchilla", "Domestic Short Hair", "Domestic Long Hair", "Scottish Fold"];
-
 type Props = {};
 type State = {
   cats: Array<ICatData>,
@@ -17,9 +12,6 @@ type State = {
   showAll: string,
   searchCentre: string,
   searchBreed: string,
-  redirect: string | null,
-  userReady: boolean,
-  currentUser: IUser & { accessToken: string },
 };
 
 export default class CatsList extends Component<Props, State>{
@@ -40,24 +32,11 @@ export default class CatsList extends Component<Props, State>{
       searchName: "",
       showAll:"",
       searchCentre: "",
-      searchBreed: "",
-            redirect: null,
-      userReady: false,
-      currentUser: { accessToken: "" },
+      searchBreed: ""
     };
   }
 
   componentDidMount() {
-    const currentUser = AuthService.getCurrentUser();
-     if (!currentUser) this.setState({ redirect: "/home" });
-    this.setState({ currentUser: currentUser, userReady: true })
-
-    
- //console.log(currentUser.email);
-   //  console.log(currentUser.username);
-     //console.log(currentUser.id);
-    
-    
     this.retrieveCats();
   }
 
@@ -91,7 +70,6 @@ export default class CatsList extends Component<Props, State>{
           cats: response.data
         });
         console.log(response.data);
-        
       })
       .catch((e: Error) => {
         console.log(e);
@@ -191,15 +169,10 @@ export default class CatsList extends Component<Props, State>{
   }
 
 
-  
   render() {
-    const { searchName,showAll, searchBreed, searchCentre, cats,currentUser } = this.state;
-     
+    const { searchName,showAll, searchBreed, searchCentre, cats } = this.state;
 
-      
     return (
-
-        
       <div className="list row">
         {/* Select Centre */}
         <div className="col-md-3">
@@ -284,54 +257,60 @@ export default class CatsList extends Component<Props, State>{
         </div>
         
         <div className="col-md-12">
-           <div>List of Cats</div>
            
           <div className="card-columns text-secondary">
             {cats.map((cat) => (
-   <Link  key={cat.id} className="text-secondary" to={"/Favourites/?userid=" + currentUser.id +"&catid="+ cat.id} >
-              <div  className="card ">
+              <div key={cat.id} className="card ">
                 <img className="card-img-top" src={'https://backend.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
-                <div className="card-body">
-                <h5 className="card-title">{cat.name+" "} 
-
-                  {console.log(currentUser.id)}
- {console.log(cat.favourites)}
-                  
-                  {
-                    
-                (() => {
-                   const array = JSON.parse("["+cat.favourites+"]");
-    //console.log(array)
-let result = array.map(i=>Number(i));
-
-                  const isFavourites = array.includes(currentUser.id);
-                  if(isFavourites) {
-                            return (
-                               <i className=" fas fa-heart text-danger"></i>
-                            )
-                        }  else {
-                            return (
-                                <i className=" far fa-heart text-danger"></i>
-                            )
-                        }
-                })()  
-            }  
-              
-                </h5>
+                <div className="card-body container-fluid">
+                <h5 className="card-title">{cat.name} {/*<i className="btn disabled far  fa-heart text-danger"></i>*/}</h5>
                 <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
                 <i className="fab fa-github"></i>{' ' + cat.breed}<br />
                 <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
-                <i className="fas fa-microchip"></i>{' ' + cat.microchip}
-                </div>
+                <i className="fas fa-microchip"></i>{' ' + cat.microchip}<br/>
+
+                  </div> 
+                {/*card-footer*/}
+           <div className="card-footer">Messages 
+           
+           
+           <button data-bs-toggle="collapse" className="btn-block mt-3" data-bs-target={'#collapse'+cat.id}>
+                    Message<span className=" badge rounded-pill bg-danger"> 9</span> </button>
+<div id={'collapse'+cat.id} className="collapse">
+Lorem ipsum dolor text....
+ </div>
+
+
+ <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Name"
+              value={searchName}
+              onChange={this.onChangeSearchName}
+            />
+            <div className="input-group-append">
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                onClick={this.searchName}
+              >
+                Send
+              </button>
+            </div> 
+ </div>
+
+             
+           </div>   
+          {/*card-footer*/}     
+              
+              
+              
               </div>
-       </Link>
-            )
-                     
-                     
-                     )}
-     
+
+  
+            ))}
           </div>
-            
         </div>
 
         

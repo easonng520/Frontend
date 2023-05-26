@@ -163,9 +163,8 @@ export default class AddCat extends Component<Props, State> {
     const { submitted,  name, sex, breed,DOB,microchip,centre,status,image,remark} = this.state;
 
     return (
-
       
-      <div className="submit-form">
+      <div className="container submit-form">
         {submitted ? (
           <div>
             <h4>You submitted successfully!</h4>

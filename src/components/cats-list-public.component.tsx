@@ -262,14 +262,62 @@ export default class CatsList extends Component<Props, State>{
             {cats.map((cat) => (
               <div key={cat.id} className="card ">
                 <img className="card-img-top" src={'https://backend.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
-                <div className="card-body">
+                <div className="card-body p-3">
                 <h5 className="card-title">{cat.name} {/*<i className="btn disabled far  fa-heart text-danger"></i>*/}</h5>
-                <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
-                <i className="fab fa-github"></i>{' ' + cat.breed}<br />
-                <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
-                <i className="fas fa-microchip"></i>{' ' + cat.microchip}
-                </div>
+
+                  <div className="row">
+  <div className="col-sm"><i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}</div>
+  <div className="col-sm"><i className="fab fa-github"></i>{' ' + cat.breed}</div>
+                  </div>    
+                  <div className="row">
+                    <div className="col-sm"> <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}</div>
+  <div className="col-sm"> <i className="fas fa-microchip"></i>{' ' + cat.microchip}</div>
+</div>
+                  
+
+                  
+                  </div> 
+                
+                {/*card-footer*/}
+           <div className="card-footer mt-0 p-2" > 
+           
+
+
+  <button className="btn mt-0 p-0 btn-block text-info" data-toggle="collapse" data-target={"#demo"+cat.id}>
+  <i class='fas fa-comments'></i>   MESSAGE <span class="badge rounded-pill badge-info">4</span>
+  </button>
+
+             <div id={"demo"+cat.id} class="collapse">
+
+  <textarea className="form-control" rows="5" id="comment"></textarea>
+             <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Message"
+              value={searchName}
+              onChange={this.onChangeSearchName}
+            />
+            <div className="input-group-append">
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                onClick={this.searchName}
+              >
+                Send
+              </button>
+            </div> 
+ </div>
+</div>
+             
+           </div>   
+          {/*card-footer*/}     
+              
+              
+              
               </div>
+
+  
             ))}
           </div>
         </div>

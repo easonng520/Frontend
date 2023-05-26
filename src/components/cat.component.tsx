@@ -244,7 +244,7 @@ onChangeCentre(e) {
     const { currentCat } = this.state;
 
     return (
-      <div>
+      <div className="container">
         {currentCat ? (
           <div className="edit-form">
             <h4>Cat</h4>

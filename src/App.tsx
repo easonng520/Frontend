@@ -166,6 +166,7 @@ class App extends Component<Props, State> {
                 <Link to={"/profile"} className="nav-link">
                   {currentUser.username}
                 </Link>
+                container-fluid
                 */}
               </li>
             
