@@ -3,8 +3,6 @@ import CatDataService from "../services/cat.service";
 import ICatData from '../types/cat.type';
 import { Link } from "react-router-dom";
 import AuthService from "../services/auth.service";
-import FavouritesService from "../services/favourites.service";
-
 import IUser from "../types/user.type";
 
 const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
@@ -35,8 +33,6 @@ export default class CatsList extends Component<Props, State>{
     this.showAll = this.showAll.bind(this);
     this.searchCentre = this.searchCentre.bind(this);
     this.searchBreed = this.searchBreed.bind(this);
-    this.updateFavourites = this.updateFavourites.bind(this);
-
     this.state = {
       cats: [],
       currentCat: null,
@@ -45,7 +41,7 @@ export default class CatsList extends Component<Props, State>{
       showAll:"",
       searchCentre: "",
       searchBreed: "",
-      redirect: null,
+            redirect: null,
       userReady: false,
       currentUser: { accessToken: "" },
     };
@@ -55,45 +51,14 @@ export default class CatsList extends Component<Props, State>{
     const currentUser = AuthService.getCurrentUser();
      if (!currentUser) this.setState({ redirect: "/home" });
     this.setState({ currentUser: currentUser, userReady: true })
+
+    
  //console.log(currentUser.email);
    //  console.log(currentUser.username);
      //console.log(currentUser.id);
+    
+    
     this.retrieveCats();
-  }
-
-  updateFavourites(catid,userid,favourites){
-   const array = JSON.parse("["+favourites+"]");
-    //console.log(array)
-let result = array.map(i=>Number(i));
-    const arrayOfLetters = result;
-const arrayWithoutD = arrayOfLetters.filter(function (letter) {
-    return letter !== userid;
-});
-
-// arrayOfLetters is unchanged
-console.log(arrayOfLetters); // ['a', 'b', 'c', 'd', 'e', 'f']
-console.log(arrayWithoutD); // ['a', 'b', 'c', 'e', 'f']
-
-  console.log('userid:'+userid);
-  console.log('catid:'+catid);
-  
-    favourites=('favourites='+arrayWithoutD)
-    console.log(favourites)
-  //favourites=('favourites=1,2,3,4')
-  
-FavouritesService.update(catid,favourites )
-      .then(response => {
-        console.log(response.data);
-        this.setState({
-          message: "The cat was updated successfully!"
-          
-        });
-      })
-      .catch(e => {
-        console.log(e);
-      });
-   alert(`Favourites Updated`); 
-  window.location.reload();
   }
 
   //onChangeSearchName
@@ -228,9 +193,14 @@ FavouritesService.update(catid,favourites )
 
   
   render() {
-    const { searchName,showAll, searchBreed, searchCentre, cats,currentUser ,favourites} = this.state;
+    const { searchName,showAll, searchBreed, searchCentre, cats,currentUser } = this.state;
+     
+
+      
     return (
-     <div className="list row">
+
+        
+      <div className="list row">
         {/* Select Centre */}
         <div className="col-md-3">
           <div className="input-group mb-3">
@@ -314,52 +284,57 @@ FavouritesService.update(catid,favourites )
         </div>
         
         <div className="col-md-12">
-           <div>List of My Favourite Cats</div>
+           <div>List of Cats</div>
+           
           <div className="card-columns text-secondary">
             {cats.map((cat) => (
-             <div key={cat.id} >
-               <div  className="card">
+   <Link  key={cat.id} className="text-secondary" to={"/Favourites/?userid=" + currentUser.id +"&catid="+ cat.id} >
+              <div  className="card ">
                 <img className="card-img-top" src={'https://backend.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
-                <div className="card-body ">
-                <h5 className="card-title">{cat.name+" "}  
-                 
+                <div className="card-body">
+                <h5 className="card-title">{cat.name+" "} 
+
+                  {console.log(currentUser.id)}
+ {console.log(cat.favourites)}
+                  
                   {
-               (() => {
+                    
+                (() => {
                    const array = JSON.parse("["+cat.favourites+"]");
     //console.log(array)
 let result = array.map(i=>Number(i));
+
                   const isFavourites = array.includes(currentUser.id);
-                    if(isFavourites) {
+                  if(isFavourites) {
                             return (
-              
-  <i className=" fas fa-heart text-danger"></i>
+                               <i className=" fas fa-heart text-danger"></i>
                             )
                         }  else {
                             return (
-                  
-                               <i className="btn far fa-heart text-danger"
-                                 onClick=  {() => this.updateFavourites(cat.id,currentUser.id,cat.favourites)}
-
-
-                                 
-                                 ></i>
-                          
-                           )
-                        }  
+                                <i className=" far fa-heart text-danger"></i>
+                            )
+                        }
                 })()  
             }  
-                   </h5>
+              
+                </h5>
                 <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
                 <i className="fab fa-github"></i>{' ' + cat.breed}<br />
                 <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
                 <i className="fas fa-microchip"></i>{' ' + cat.microchip}
                 </div>
               </div>
-             </div>
-           )
-                   )}
+       </Link>
+            )
+                     
+                     
+                     )}
+     
           </div>
+            
         </div>
+
+        
       </div>
     );
   }
