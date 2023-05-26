@@ -257,7 +257,7 @@ export default class CatsList extends Component<Props, State>{
         </div>
         
         <div className="col-md-12">
-           <div>List of Cats</div>
+           
           <div className="card-columns text-secondary">
             {cats.map((cat) => (
               <div key={cat.id} className="card ">

@@ -17,6 +17,7 @@ class CatDataService {
     return http.put(`/cats/${id}`, data);
   }
 
+
   delete(id) {
     return http.delete(`/cats/${id}`);
   }

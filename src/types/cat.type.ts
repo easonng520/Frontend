@@ -10,4 +10,5 @@ export default interface ICatData {
   status: string,
   image: string,
   remark: string,
+ favourites:string
 }

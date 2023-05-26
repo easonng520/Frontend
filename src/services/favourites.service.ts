@@ -1,7 +1,8 @@
-import http from "../http-common";
+import axios from 'axios';
+const API_URL = 'https://backend.easonng520.repl.co/api';
 class FavouritesService {
-    update(id, data) {
-    return http.put(`/favourites/${id}`, data);
+  update(id, data) {
+        return axios.put(API_URL + `/favourites/${id}`, data);
   }
 }
 export default new FavouritesService();
