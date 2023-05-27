@@ -405,26 +405,39 @@ let result = array.map(i=>Number(i));
              
              
 
-  <button className="btn mt-0 p-0 btn-block text-info" data-toggle="collapse" data-target={"#demo"+cat.id}>
+  <button className="btn mt-0 p-0 btn-block text-info border-bottom" data-toggle="collapse" data-target={"#demo"+cat.id}>
   <i className='fas fa-comments'></i>   MESSAGE 
   </button>
 
-             <div id={"demo"+cat.id} className="collapse">
+             <div id={"demo"+cat.id} className="collapse ">
 
                
               {messages.map((message) => (
-             <div key={message.id} >
+             <div  key={message.id} className="p-0">
                   {
                (() => {
                   //console.log(message.catid)
                 
                     if(message.catid === cat.id) {
                             return (
+                            <div className="p0-0">
+                       <div className="row ">
+                  <div className="col-sm-1"></div>
+  <div className="col-sm-7 border bg-light">{message.message}</div>
+                  
+</div>
+                          
                             <div className="row pt-2">
-                 <div className="col-sm-1 bg-dark"></div>
-  <div className="col-sm-7  border bg-light">{message.message+ ' id:'+message.id}</div>
-</div>                
-                   
+                  <div className="col-sm-4"></div>
+  <div className="col-sm-7 text-right border bg-light">{message.reply}</div>
+                   <div className="col-sm-1 bg-info"></div>
+</div>
+
+
+                              
+                            
+                            </div>                
+                            
                             )
 
 
@@ -433,17 +446,14 @@ let result = array.map(i=>Number(i));
                         }  
                 })()  
             }  
+           
+             
              </div>
            )
                    )}
                
 
                
-                <div className="row pt-2">
-                  <div className="col-sm-4"></div>
-  <div className="col-sm-7 text-right border bg-light">Start aligned text on all viewport sizes.</div>
-                   <div className="col-sm-1 bg-info"></div>
-</div>
                
            
              <div className="input-group pt-2 ">
