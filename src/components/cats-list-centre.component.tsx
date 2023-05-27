@@ -95,7 +95,7 @@ delMessage(){
           
                 <div key={cat.id} className="card" >
                   
-                <img className="card-img-top" src={'/images/' + cat.image} alt="Card image"></img>
+                <img className="card-img-top" src={'https://b.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
     <div className="card-body">
      <Link  key={cat.id} className="text-secondary" to={"/cats/" + cat.id} > <h5 className="card-title">{cat.name} <i className="btn disabled fas fa-edit "></i></h5> </Link>  
 

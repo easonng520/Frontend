@@ -1,5 +1,8 @@
 import http from "../http-common";
 
+//import axios from 'axios';
+//const API_URL = 'https://b.easonng520.repl.co/api/';
+
 const upload = (file: File, onUploadProgress: any): Promise<any> => {
   let formData = new FormData();
 

@@ -348,7 +348,7 @@ addMessage(){
             {cats.map((cat) => (
              <div key={cat.id} >
                <div  className="card">
-                <img className="card-img-top" src={'https://backend.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
+                <img className="card-img-top" src={'https://b.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
                 <div className="card-body ">
                 <h5 className="card-title">{cat.name+" "}  
                  

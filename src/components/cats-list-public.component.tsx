@@ -292,7 +292,7 @@ export default class CatsList extends Component<Props, State>{
           <div className="card-columns text-secondary">
             {cats.map((cat) => (
               <div key={cat.id} className="card ">
-                <img className="card-img-top" src={'https://backend.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
+                <img className="card-img-top" src={'https://b.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
                 <div className="card-body p-3">
                 <h5 className="card-title">{cat.name} {/*<i className="btn disabled far  fa-heart text-danger"></i>*/}</h5>
 

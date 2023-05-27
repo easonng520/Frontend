@@ -65,7 +65,7 @@ export default class CatsList extends Component<Props, State>{
           <Link  className="text-secondary" to={"/cats/" + cat.id} >
                 <div key={cat.id} className="card" >
                   
-                <img  key={cat.id}  className="card-img-top" src={'/images/' + cat.image} alt="Card image"></img>
+                <img className="card-img-top" src={'https://b.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
     <div className="card-body">
       <h5 className="card-title">{cat.name} <i className="btn disabled fas fa-edit "></i></h5>
                     <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
