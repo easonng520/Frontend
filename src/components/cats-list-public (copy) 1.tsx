@@ -1,32 +1,21 @@
 import React, { Component, ChangeEvent } from "react";
 import CatDataService from "../services/cat.service";
-import ICatData from '../types/cat.type';
-import { Link } from "react-router-dom";
-import AuthService from "../services/auth.service";
-import FavouritesService from "../services/favourites.service";
-import IUser from "../types/user.type";
 import MessageDataService from "../services/message.service";
+import ICatData from '../types/cat.type';
 import IMessageData from '../types/message.type';
-
-
 
 const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
 const breedList = ["Bengal Cross", "Chinchilla", "Domestic Short Hair", "Domestic Long Hair", "Scottish Fold"];
-
 type Props = {};
 type State = {
-    messages: Array<IMessageData>,
-
- cats: Array<ICatData>,
+  messages: Array<IMessageData>
+  cats: Array<ICatData>,
   currentCat: ICatData | null,
   currentIndex: number,
   searchName: string,
   showAll: string,
   searchCentre: string,
   searchBreed: string,
-  redirect: string | null,
-  userReady: boolean,
-  currentUser: IUser & { accessToken: string },
 };
 
 export default class CatsList extends Component<Props, State>{
@@ -36,75 +25,29 @@ export default class CatsList extends Component<Props, State>{
     this.onChangeSearchCentre = this.onChangeSearchCentre.bind(this);
     this.onChangeSearchBreed = this.onChangeSearchBreed.bind(this);
     this.retrieveCats = this.retrieveCats.bind(this);
-        this.retrieveMessages = this.retrieveMessages.bind(this);
 
+    this.retrieveMessages = this.retrieveMessages.bind(this);
+
+    
     this.searchName = this.searchName.bind(this);
     this.showAll = this.showAll.bind(this);
     this.searchCentre = this.searchCentre.bind(this);
     this.searchBreed = this.searchBreed.bind(this);
-    this.updateFavourites = this.updateFavourites.bind(this);
-
     this.state = {
       cats: [],
-      messages: [],
+        messages: [],
       currentCat: null,
       currentIndex: -1,
       searchName: "",
       showAll:"",
       searchCentre: "",
-      searchBreed: "",
-      redirect: null,
-      userReady: false,
-      currentUser: { accessToken: "" },
+      searchBreed: ""
     };
   }
 
   componentDidMount() {
-    const currentUser = AuthService.getCurrentUser();
-     if (!currentUser) this.setState({ redirect: "/home" });
-    this.setState({ currentUser: currentUser, userReady: true })
- //console.log(currentUser.email);
-   //  console.log(currentUser.username);
-     //console.log(currentUser.id);
     this.retrieveCats();
      this.retrieveMessages();
-  }
-
-  updateFavourites(catid,userid,favourites){
-   const array = JSON.parse("["+favourites+"]");
-    //console.log(array)
-let result = array.map(i=>Number(i));
-
-  
-const arrayOfLetters = result;
-const arrayWithoutD = arrayOfLetters.filter(function (letter) {
-    return letter !== userid;
-});
-    favourites=('favourites='+arrayWithoutD)
-    console.log(favourites)
-
-
-
-if(!result.includes(userid)){          //checking weather array contain the id
-    result.push(userid);               //adding to array because value doesnt exists
-}else{
-    result.splice(result.indexOf(userid), 1);  //deleting
-}
-console.log(result.toString());
-
-FavouritesService.update(catid,'favourites='+result.toString() )
-      .then(response => {
-        console.log(response.data);
-        this.setState({
-          message: "The cat was updated successfully!"
-          
-        });
-      })
-      .catch(e => {
-        console.log(e);
-      });
-   alert(`Favourites Updated`); 
-  window.location.reload();
   }
 
   //onChangeSearchName
@@ -131,7 +74,7 @@ FavouritesService.update(catid,'favourites='+result.toString() )
     });
   }
 
- retrieveMessages() {
+  retrieveMessages() {
     MessageDataService.getAll()
       .then((response: any) => {
         this.setState({
@@ -143,8 +86,7 @@ FavouritesService.update(catid,'favourites='+result.toString() )
         console.log(e);
       });
   }
-
-
+  
   retrieveCats() {
     CatDataService.getAll()
       .then((response: any) => {
@@ -152,7 +94,6 @@ FavouritesService.update(catid,'favourites='+result.toString() )
           cats: response.data
         });
         console.log(response.data);
-        
       })
       .catch((e: Error) => {
         console.log(e);
@@ -252,11 +193,11 @@ FavouritesService.update(catid,'favourites='+result.toString() )
   }
 
 
-  
   render() {
-    const { searchName,showAll, searchBreed, searchCentre, cats,currentUser ,favourites,messages} = this.state;
+    const { searchName,showAll, searchBreed, searchCentre, cats ,messages} = this.state;
+
     return (
-     <div className="list row">
+      <div className="list row">
         {/* Select Centre */}
         <div className="col-md-3">
           <div className="input-group mb-3">
@@ -338,44 +279,20 @@ FavouritesService.update(catid,'favourites='+result.toString() )
            
           </div>
         </div>
+
+
+        
         
         <div className="col-md-12">
-          
-        <div className="card-columns text-secondary">
+             
+          <div className="card-columns text-secondary">
             {cats.map((cat) => (
-             <div key={cat.id} >
-               <div  className="card">
+              <div key={cat.id} className="card ">
                 <img className="card-img-top" src={'https://backend.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
-                <div className="card-body ">
-                <h5 className="card-title">{cat.name+" "}  
-                 
-                  {
-               (() => {
-                   const array = JSON.parse("["+cat.favourites+"]");
-    //console.log(array)
-let result = array.map(i=>Number(i));
-                  const isFavourites = array.includes(currentUser.id);
-                    if(isFavourites) {
-                            return (
-              
-  <i className="btn fas fa-heart text-danger"
-    onClick=  {() => this.updateFavourites(cat.id,currentUser.id,cat.favourites)}
-    ></i>
-                            )
-                        }  else {
-                            return (
-                  
-                               <i className="btn far fa-heart text-danger"
-                                 onClick=  {() => this.updateFavourites(cat.id,currentUser.id,cat.favourites)}
-                                 ></i>
-                           )
-                        }  
-                })()  
-            }  
-                   </h5>
+                <div className="card-body p-3">
+                <h5 className="card-title">{cat.name} {/*<i className="btn disabled far  fa-heart text-danger"></i>*/}</h5>
 
-
-            <div className="row">
+                  <div className="row">
   <div className="col-sm"><i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}</div>
   <div className="col-sm"><i className="fab fa-github"></i>{' ' + cat.breed}</div>
                   </div>    
@@ -383,98 +300,50 @@ let result = array.map(i=>Number(i));
                     <div className="col-sm"> <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}</div>
   <div className="col-sm"> <i className="fas fa-microchip"></i>{' ' + cat.microchip}</div>
 </div>
-
-
-
+                  
 
                   
-                </div>
-
-
-
-   {/*card-footer*/}
+                  </div> 
+                
+                {/*card-footer*/}
            <div className="card-footer mt-0 p-2" > 
            
+ {messages.map((message) => (
+              <div key={message.id} className="card ">{message.id}</div>
+   ))}
 
-
-
-
-
-
-
-             
-             
-
-  <button className="btn mt-0 p-0 btn-block text-info border-bottom" data-toggle="collapse" data-target={"#demo"+cat.id}>
-  <i className='fas fa-comments'></i>   MESSAGE 
+  <button className="btn mt-0 p-0 btn-block text-info" data-toggle="collapse" data-target={"#demo"+cat.id}>
+  <i className='fas fa-comments'></i>   MESSAGE <span className="badge rounded-pill badge-info">4</span>
   </button>
 
-             <div id={"demo"+cat.id} className="collapse container-fluid">
+             <div id={"demo"+cat.id} className="collapse">
 
-               
-              {messages.map((message) => (
-             <div  key={message.id} className="≈container-fluid">
-                  {
-               (() => {
-                  //console.log(message.catid)
-                
-                    if(message.catid === cat.id) {
-                            return (
-                            <div>
-                       
-                           {message.message !=null &&
 
-<div className="row pt-2 ">
-                  <div className="col-sm-1 text-info"> <i className='far fa-comment-alt'></i></div>
-  <div className="col-sm-7  text-start border bg-light">{message.message}</div>
-                  
+               <div className="row pt-2">
+                 <div className="col-sm-1 bg-dark"></div>
+  <div className="col-sm-7  border bg-light">Start aligned text on all viewport sizes.</div>
+  
 </div>
-
-                             
-      }
-{message.reply !=null &&
-  <div className="row pt-2 ">
+                <div className="row pt-2">
                   <div className="col-sm-4"></div>
-  <div className="col-sm-7 text-right border bg-light ">{message.reply}</div>
-                   <div className="col-sm-1 "><i className='far fa-comment text-info'></i></div>
+  <div className="col-sm-7 text-right border bg-light">Start aligned text on all viewport sizes.</div>
+                   <div className="col-sm-1 bg-info"></div>
 </div>
-}
-
-                              
-                            
-                            </div>                
-                            
-                            )
-
-
-
-                      
-                        }  
-                })()  
-            }  
-           
-             
-             </div>
-           )
-                   )}
-               
-
-               
                
            
              <div className="input-group pt-2 ">
             <input
               type="text"
-              name={"txt"+cat.id}
               className="form-control "
               placeholder="Message"
-             
+              value={searchName}
+              onChange={this.onChangeSearchName}
             />
             <div className="input-group-append">
               <button
                 className="btn btn-outline-secondary"
                 type="button"
-                onClick={this.addMessage}
+                onClick={this.searchName}
               >
                 Send
               </button>
@@ -483,16 +352,19 @@ let result = array.map(i=>Number(i));
 </div>
             
            </div>   
-          {/*card-footer*/}  
-
-
-                 
+          {/*card-footer*/}     
+              
+              
+              
               </div>
-             </div>
-           )
-                   )}
+
+
+  
+            ))}
           </div>
         </div>
+
+        
       </div>
     );
   }
