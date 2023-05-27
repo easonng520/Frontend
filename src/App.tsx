@@ -144,6 +144,18 @@ class App extends Component<Props, State> {
             )
             
             }
+
+          {showModeratorBoard && (
+              <li className="nav-item">
+               <Link to={"/FileUpload"} className="nav-link">
+                Upload
+              </Link>
+              </li>
+            )
+            
+            }
+
+          
             {showModeratorBoard && (
               <li className="nav-item">
                <Link to={"/add"} className="nav-link">

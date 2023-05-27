@@ -284,16 +284,28 @@ export default class CatsList extends Component<Props, State>{
 
 
   <button className="btn mt-0 p-0 btn-block text-info" data-toggle="collapse" data-target={"#demo"+cat.id}>
-  <i class='fas fa-comments'></i>   MESSAGE <span class="badge rounded-pill badge-info">4</span>
+  <i className='fas fa-comments'></i>   MESSAGE <span className="badge rounded-pill badge-info">4</span>
   </button>
 
-             <div id={"demo"+cat.id} class="collapse">
+             <div id={"demo"+cat.id} className="collapse">
 
-  <textarea className="form-control" rows="5" id="comment"></textarea>
-             <div className="input-group">
+
+               <div className="row pt-2">
+                 <div className="col-sm-1 bg-dark"></div>
+  <div className="col-sm-7  border bg-light">Start aligned text on all viewport sizes.</div>
+  
+</div>
+                <div className="row pt-2">
+                  <div className="col-sm-4"></div>
+  <div className="col-sm-7 text-right border bg-light">Start aligned text on all viewport sizes.</div>
+                   <div className="col-sm-1 bg-info"></div>
+</div>
+               
+           
+             <div className="input-group pt-2 ">
             <input
               type="text"
-              className="form-control"
+              className="form-control "
               placeholder="Message"
               value={searchName}
               onChange={this.onChangeSearchName}
@@ -309,13 +321,14 @@ export default class CatsList extends Component<Props, State>{
             </div> 
  </div>
 </div>
-             
+            
            </div>   
           {/*card-footer*/}     
               
               
               
               </div>
+
 
   
             ))}
