@@ -350,6 +350,7 @@ let result = array.map(i=>Number(i));
                             return (
               <div  className="card">
                 <img className="card-img-top" src={'https://backend.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
+                {/*card-body */}
                 <div className="card-body ">
                 <h5 className="card-title">{cat.name+" "}   
                                <i className="btn fas fa-heart text-danger"
@@ -357,11 +358,126 @@ let result = array.map(i=>Number(i));
                                
                                  ></i>
                            </h5>
-                <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
-                <i className="fab fa-github"></i>{' ' + cat.breed}<br />
-                <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
-                <i className="fas fa-microchip"></i>{' ' + cat.microchip}
+
+
+
+                   <div className="row">
+  <div className="col-sm"><i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}</div>
+  <div className="col-sm"><i className="fab fa-github"></i>{' ' + cat.breed}</div>
+                  </div>    
+                  <div className="row">
+                    <div className="col-sm"> <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}</div>
+  <div className="col-sm"> <i className="fas fa-microchip"></i>{' ' + cat.microchip}</div>
+</div>
+
+
+                  
                 </div>
+ {/*card-body */}
+
+
+                {/*card-footer*/}
+           <div className="card-footer mt-0 p-2" > 
+           
+
+
+
+
+
+
+
+             
+             
+
+  <button className="btn mt-0 p-0 btn-block text-info border-bottom" data-toggle="collapse" data-target={"#demo"+cat.id}>
+  <i className='fas fa-comments'></i>   MESSAGE 
+  </button>
+
+             <div id={"demo"+cat.id} className="collapse container-fluid">
+
+
+
+
+
+              {messages.map((message) => (
+             <div  key={message.id} className="≈container-fluid">
+                  {
+               (() => {
+                  //console.log(message.catid)
+                
+                    if(message.catid === cat.id) {
+                            return (
+                            <div>
+                       
+                           {message.message !=null &&
+
+<div className="row pt-2 ">
+                  <div className="col-sm-1 text-info"> <i className='far fa-comment-alt'></i></div>
+  <div className="col-sm-7  text-start border bg-light">{message.message}</div>
+                  
+</div>
+
+                             
+      }
+{message.reply !=null &&
+  <div className="row pt-2 ">
+                  <div className="col-sm-4"></div>
+  <div className="col-sm-7 text-right border bg-light ">{message.reply}</div>
+                   <div className="col-sm-1 "><i className='far fa-comment text-info'></i></div>
+</div>
+}
+
+                              
+                            
+                            </div>                
+                            
+                            )
+
+
+
+                      
+                        }  
+                })()  
+            }  
+           
+             
+             </div>
+           )
+                   )}
+
+
+
+
+
+
+
+
+               
+             <div className="input-group pt-2 ">
+            <input
+              type="text"
+              name={"txt"+cat.id}
+              className="form-control "
+              placeholder="Message"
+             
+            />
+            <div className="input-group-append">
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                onClick={this.addMessage}
+              >
+                Send
+              </button>
+            </div> 
+ </div>
+</div>
+            
+           </div>   
+          {/*card-footer*/}  
+
+                
+               
               </div>
                            )
                         }  
