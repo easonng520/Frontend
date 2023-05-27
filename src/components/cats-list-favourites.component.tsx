@@ -33,7 +33,7 @@ export default class CatsList extends Component<Props, State>{
     this.onChangeSearchCentre = this.onChangeSearchCentre.bind(this);
     this.onChangeSearchBreed = this.onChangeSearchBreed.bind(this);
     this.retrieveCats = this.retrieveCats.bind(this);
-            this.retrieveMessages = this.retrieveMessages.bind(this);
+  this.retrieveMessages = this.retrieveMessages.bind(this);
 
     this.searchName = this.searchName.bind(this);
     this.showAll = this.showAll.bind(this);
@@ -103,6 +103,9 @@ FavouritesService.update(catid,favourites )
   window.location.reload();
   }
 
+addMessage(){
+    alert(`Message Sent!`);  
+}
   //onChangeSearchName
   onChangeSearchName(e: ChangeEvent<HTMLInputElement>) {
     const searchName = e.target.value;

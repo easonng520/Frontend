@@ -144,6 +144,9 @@ FavouritesService.update(catid,'favourites='+result.toString() )
       });
   }
 
+addMessage(){
+    alert(`Message Sent!`);  
+}
 
   retrieveCats() {
     CatDataService.getAll()

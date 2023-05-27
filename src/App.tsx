@@ -128,7 +128,7 @@ class App extends Component<Props, State> {
             {currentUser && (
         
               <li className="nav-item">
-                <Link to={"/CatsListfavourites"} className="nav-link">
+                <Link to={"/CatsListfavourites"} className="nav-link text-info">
                   My Favourite
                 </Link>
               </li>
@@ -136,8 +136,8 @@ class App extends Component<Props, State> {
 
 
             {showModeratorBoard && (
-              <li className="nav-item">
-                <Link to={"/CatsListCentre"} className="nav-link">
+              <li className="nav-item ">
+                <Link to={"/CatsListCentre"} className="nav-link text-info">
                    List of {currentUser.centre}
                 </Link>
               </li>
@@ -147,7 +147,7 @@ class App extends Component<Props, State> {
 
           {showModeratorBoard && (
               <li className="nav-item">
-               <Link to={"/FileUpload"} className="nav-link">
+               <Link to={"/FileUpload"} className="nav-link text-info">
                 Upload
               </Link>
               </li>
@@ -158,7 +158,7 @@ class App extends Component<Props, State> {
           
             {showModeratorBoard && (
               <li className="nav-item">
-               <Link to={"/add"} className="nav-link">
+               <Link to={"/add"} className="nav-link text-info">
                 Add Cat
               </Link>
               </li>
@@ -170,7 +170,7 @@ class App extends Component<Props, State> {
           {currentUser ? (
         
             <div className="navbar-nav ml-auto">
-              <li className="nav-item">
+              <li className="nav-item ">
                  <span  className="nav-link">
                   {currentUser.username}
                 </span>
@@ -183,14 +183,10 @@ class App extends Component<Props, State> {
               </li>
             
 
-   <li className="nav-item">
-                <a href="/contact" className="nav-link">
-                  Contact Us
-                </a>
-              </li>
+
 
   <li className="nav-item">
-                <a href="/" className="nav-link" onClick={this.logOut}>
+                <a href="/" className="nav-link text-info" onClick={this.logOut}>
                   Log Out
                 </a>
               </li>

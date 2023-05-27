@@ -50,6 +50,10 @@ export default class CatsList extends Component<Props, State>{
      this.retrieveMessages();
   }
 
+  addMessage(){
+    alert(`Message Sent!`);  
+}
+  
   //onChangeSearchName
   onChangeSearchName(e: ChangeEvent<HTMLInputElement>) {
     const searchName = e.target.value;
