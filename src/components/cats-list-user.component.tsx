@@ -4,15 +4,20 @@ import ICatData from '../types/cat.type';
 import { Link } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import FavouritesService from "../services/favourites.service";
-
 import IUser from "../types/user.type";
+import MessageDataService from "../services/message.service";
+import IMessageData from '../types/message.type';
+
+
 
 const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
 const breedList = ["Bengal Cross", "Chinchilla", "Domestic Short Hair", "Domestic Long Hair", "Scottish Fold"];
 
 type Props = {};
 type State = {
-  cats: Array<ICatData>,
+    messages: Array<IMessageData>,
+
+ cats: Array<ICatData>,
   currentCat: ICatData | null,
   currentIndex: number,
   searchName: string,
@@ -31,6 +36,8 @@ export default class CatsList extends Component<Props, State>{
     this.onChangeSearchCentre = this.onChangeSearchCentre.bind(this);
     this.onChangeSearchBreed = this.onChangeSearchBreed.bind(this);
     this.retrieveCats = this.retrieveCats.bind(this);
+        this.retrieveMessages = this.retrieveMessages.bind(this);
+
     this.searchName = this.searchName.bind(this);
     this.showAll = this.showAll.bind(this);
     this.searchCentre = this.searchCentre.bind(this);
@@ -39,6 +46,7 @@ export default class CatsList extends Component<Props, State>{
 
     this.state = {
       cats: [],
+      messages: [],
       currentCat: null,
       currentIndex: -1,
       searchName: "",
@@ -59,6 +67,7 @@ export default class CatsList extends Component<Props, State>{
    //  console.log(currentUser.username);
      //console.log(currentUser.id);
     this.retrieveCats();
+     this.retrieveMessages();
   }
 
   updateFavourites(catid,userid,favourites){
@@ -121,6 +130,21 @@ FavouritesService.update(catid,'favourites='+result.toString() )
       searchBreed: searchBreed
     });
   }
+
+ retrieveMessages() {
+    MessageDataService.getAll()
+      .then((response: any) => {
+        this.setState({
+          messages: response.data
+        });
+        console.log(response.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+  }
+
+
   retrieveCats() {
     CatDataService.getAll()
       .then((response: any) => {
@@ -230,7 +254,7 @@ FavouritesService.update(catid,'favourites='+result.toString() )
 
   
   render() {
-    const { searchName,showAll, searchBreed, searchCentre, cats,currentUser ,favourites} = this.state;
+    const { searchName,showAll, searchBreed, searchCentre, cats,currentUser ,favourites,messages} = this.state;
     return (
      <div className="list row">
         {/* Select Centre */}
@@ -349,11 +373,76 @@ let result = array.map(i=>Number(i));
                 })()  
             }  
                    </h5>
-                <i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}<br />
-                <i className="fab fa-github"></i>{' ' + cat.breed}<br />
-                <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}<br />
-                <i className="fas fa-microchip"></i>{' ' + cat.microchip}
+
+
+            <div className="row">
+  <div className="col-sm"><i className="fas fa-map-marked-alt"></i>{' ' + cat.centre}</div>
+  <div className="col-sm"><i className="fab fa-github"></i>{' ' + cat.breed}</div>
+                  </div>    
+                  <div className="row">
+                    <div className="col-sm"> <i className="fas fa-birthday-cake"></i>{' ' + cat.DOB}</div>
+  <div className="col-sm"> <i className="fas fa-microchip"></i>{' ' + cat.microchip}</div>
+</div>
+
+
+
+
+                  
                 </div>
+
+
+
+   {/*card-footer*/}
+           <div className="card-footer mt-0 p-2" > 
+           
+ {messages.map((message) => (
+              <div key={message.id} className="card ">{message.id}</div>
+   ))}
+
+  <button className="btn mt-0 p-0 btn-block text-info" data-toggle="collapse" data-target={"#demo"+cat.id}>
+  <i className='fas fa-comments'></i>   MESSAGE <span className="badge rounded-pill badge-info">4</span>
+  </button>
+
+             <div id={"demo"+cat.id} className="collapse">
+
+
+               <div className="row pt-2">
+                 <div className="col-sm-1 bg-dark"></div>
+  <div className="col-sm-7  border bg-light">Start aligned text on all viewport sizes.</div>
+  
+</div>
+                <div className="row pt-2">
+                  <div className="col-sm-4"></div>
+  <div className="col-sm-7 text-right border bg-light">Start aligned text on all viewport sizes.</div>
+                   <div className="col-sm-1 bg-info"></div>
+</div>
+               
+           
+             <div className="input-group pt-2 ">
+            <input
+              type="text"
+              className="form-control "
+              placeholder="Message"
+              value={searchName}
+              onChange={this.onChangeSearchName}
+            />
+            <div className="input-group-append">
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                onClick={this.searchName}
+              >
+                Send
+              </button>
+            </div> 
+ </div>
+</div>
+            
+           </div>   
+          {/*card-footer*/}  
+
+
+                 
               </div>
              </div>
            )
