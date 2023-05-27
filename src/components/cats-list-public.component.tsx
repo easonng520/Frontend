@@ -1,10 +1,14 @@
 import React, { Component, ChangeEvent } from "react";
 import CatDataService from "../services/cat.service";
+import MessageDataService from "../services/message.service";
 import ICatData from '../types/cat.type';
+import IMessageData from '../types/message.type';
+
 const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
 const breedList = ["Bengal Cross", "Chinchilla", "Domestic Short Hair", "Domestic Long Hair", "Scottish Fold"];
 type Props = {};
 type State = {
+  messages: Array<IMessageData>
   cats: Array<ICatData>,
   currentCat: ICatData | null,
   currentIndex: number,
@@ -21,12 +25,17 @@ export default class CatsList extends Component<Props, State>{
     this.onChangeSearchCentre = this.onChangeSearchCentre.bind(this);
     this.onChangeSearchBreed = this.onChangeSearchBreed.bind(this);
     this.retrieveCats = this.retrieveCats.bind(this);
+
+    this.retrieveMessages = this.retrieveMessages.bind(this);
+
+    
     this.searchName = this.searchName.bind(this);
     this.showAll = this.showAll.bind(this);
     this.searchCentre = this.searchCentre.bind(this);
     this.searchBreed = this.searchBreed.bind(this);
     this.state = {
       cats: [],
+        messages: [],
       currentCat: null,
       currentIndex: -1,
       searchName: "",
@@ -38,6 +47,7 @@ export default class CatsList extends Component<Props, State>{
 
   componentDidMount() {
     this.retrieveCats();
+     this.retrieveMessages();
   }
 
   //onChangeSearchName
@@ -63,6 +73,20 @@ export default class CatsList extends Component<Props, State>{
       searchBreed: searchBreed
     });
   }
+
+  retrieveMessages() {
+    MessageDataService.getAll()
+      .then((response: any) => {
+        this.setState({
+          messages: response.data
+        });
+        console.log(response.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+  }
+  
   retrieveCats() {
     CatDataService.getAll()
       .then((response: any) => {
@@ -170,7 +194,7 @@ export default class CatsList extends Component<Props, State>{
 
 
   render() {
-    const { searchName,showAll, searchBreed, searchCentre, cats } = this.state;
+    const { searchName,showAll, searchBreed, searchCentre, cats ,messages} = this.state;
 
     return (
       <div className="list row">
@@ -255,9 +279,12 @@ export default class CatsList extends Component<Props, State>{
            
           </div>
         </div>
+
+
+        
         
         <div className="col-md-12">
-           
+             
           <div className="card-columns text-secondary">
             {cats.map((cat) => (
               <div key={cat.id} className="card ">
@@ -281,7 +308,9 @@ export default class CatsList extends Component<Props, State>{
                 {/*card-footer*/}
            <div className="card-footer mt-0 p-2" > 
            
-
+ {messages.map((message) => (
+              <div key={message.id} className="card ">{message.id}</div>
+   ))}
 
   <button className="btn mt-0 p-0 btn-block text-info" data-toggle="collapse" data-target={"#demo"+cat.id}>
   <i className='fas fa-comments'></i>   MESSAGE <span className="badge rounded-pill badge-info">4</span>
