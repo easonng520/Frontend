@@ -4,7 +4,8 @@ import ICatData from '../types/cat.type';
 import { Link } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import FavouritesService from "../services/favourites.service";
-
+import MessageDataService from "../services/message.service";
+import IMessageData from '../types/message.type';
 import IUser from "../types/user.type";
 
 const centreList = ["Hong Kong Centre", "Kowloon Centre", "Mui Wo Clinic", "Sai Kung Centre"];
@@ -12,6 +13,7 @@ const breedList = ["Bengal Cross", "Chinchilla", "Domestic Short Hair", "Domesti
 
 type Props = {};
 type State = {
+   messages: Array<IMessageData>,
   cats: Array<ICatData>,
   currentCat: ICatData | null,
   currentIndex: number,
@@ -31,6 +33,8 @@ export default class CatsList extends Component<Props, State>{
     this.onChangeSearchCentre = this.onChangeSearchCentre.bind(this);
     this.onChangeSearchBreed = this.onChangeSearchBreed.bind(this);
     this.retrieveCats = this.retrieveCats.bind(this);
+            this.retrieveMessages = this.retrieveMessages.bind(this);
+
     this.searchName = this.searchName.bind(this);
     this.showAll = this.showAll.bind(this);
     this.searchCentre = this.searchCentre.bind(this);
@@ -39,6 +43,7 @@ export default class CatsList extends Component<Props, State>{
 
     this.state = {
       cats: [],
+      messages: [],
       currentCat: null,
       currentIndex: -1,
       searchName: "",
@@ -59,6 +64,8 @@ export default class CatsList extends Component<Props, State>{
    //  console.log(currentUser.username);
      //console.log(currentUser.id);
     this.retrieveCats();
+         this.retrieveMessages();
+
   }
 
   updateFavourites(catid,userid,favourites){
@@ -119,6 +126,21 @@ FavouritesService.update(catid,favourites )
       searchBreed: searchBreed
     });
   }
+
+retrieveMessages() {
+    MessageDataService.getAll()
+      .then((response: any) => {
+        this.setState({
+          messages: response.data
+        });
+        console.log(response.data);
+      })
+      .catch((e: Error) => {
+        console.log(e);
+      });
+  }
+
+
   retrieveCats() {
     CatDataService.getAll()
       .then((response: any) => {
@@ -228,7 +250,7 @@ FavouritesService.update(catid,favourites )
 
   
   render() {
-    const { searchName,showAll, searchBreed, searchCentre, cats,currentUser ,favourites} = this.state;
+    const { searchName,showAll, searchBreed, searchCentre, cats,currentUser ,favourites,messages} = this.state;
     return (
      <div className="list row">
         {/* Select Centre */}
