@@ -1,6 +1,6 @@
 export default interface ICatData {
   id?: any | null,
-  message:string,
+  message: string,
   reply: string,
   catid: string
 }

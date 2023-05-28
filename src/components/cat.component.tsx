@@ -344,7 +344,7 @@ onChangeCentre(e) {
               </div>
             </form>
 
-            {currentCat.published ? (
+            {/*currentCat.published ? (
               <button
                 className="badge badge-primary mr-2"
                 onClick={() => this.updatePublished(false)}
@@ -358,7 +358,7 @@ onChangeCentre(e) {
               >
                 Publish
               </button>
-            )}
+            )*/}
 
             <button
               className="badge badge-danger mr-2"

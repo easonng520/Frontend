@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "https://b.easonng520.repl.co/api/auth/";
+const API_URL = "https://backend.easonng520.repl.co/api/auth/";
 class AuthService {
   login(username: string, password: string) {
     return axios

@@ -292,7 +292,7 @@ export default class CatsList extends Component<Props, State>{
           <div className="card-columns text-secondary">
             {cats.map((cat) => (
               <div key={cat.id} className="card ">
-                <img className="card-img-top" src={'https://b.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
+                <img className="card-img-top" src={'https://backend.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
                 <div className="card-body p-3">
                 <h5 className="card-title">{cat.name} {/*<i className="btn disabled far  fa-heart text-danger"></i>*/}</h5>
 
@@ -344,7 +344,7 @@ export default class CatsList extends Component<Props, State>{
 
 <div className="row pt-2 ">
                   <div className="col-sm-1 text-info"> <i className='far fa-comment-alt'></i></div>
-  <div className="col-sm-7  text-start border bg-light">{message.message}</div>
+  <div className="col-sm-7  text-start border-bottom">{message.message}</div>
                   
 </div>
 
@@ -353,7 +353,7 @@ export default class CatsList extends Component<Props, State>{
 {message.reply !=null &&
   <div className="row pt-2 ">
                   <div className="col-sm-4"></div>
-  <div className="col-sm-7 text-right border bg-light ">{message.reply}</div>
+  <div className="col-sm-7 text-right border-bottom ">{message.reply}</div>
                    <div className="col-sm-1 "><i className='far fa-comment text-info'></i></div>
 </div>
 }

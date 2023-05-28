@@ -5,20 +5,12 @@ import "./App.css";
 
 import AuthService from "./services/auth.service";
 import IUser from './types/user.type';
-import Contact from "./components/contact.component";
 import Login from "./components/login.component";
 import Register from "./components/register.component";
-import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
-import BoardModerator from "./components/board-moderator.component";
-import BoardAdmin from "./components/board-admin.component";
-
 import AddCat from "./components/add-cat.component";
 import Cat from "./components/cat.component";
-
 import CatsListCentre from "./components/cats-list-centre.component";
 import CatsListFavourites from "./components/cats-list-favourites.component";
-import CatsListStaff from "./components/cats-list-staff.component";
 import CatsListUser from "./components/cats-list-user.component";
 import CatsListPublic from "./components/cats-list-public.component";
 import EventBus from "./common/EventBus";
@@ -216,17 +208,11 @@ class App extends Component<Props, State> {
             <Route path="/" element={<CatsListPublic />} />
              <Route path="/home" element={<CatsListPublic />} />
             <Route path="/FileUpload" element={<FileUpload />} />
-              <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/user" element={<BoardUser />} />
-            <Route path="/mod" element={<BoardModerator />} />
-            <Route path="/admin" element={<BoardAdmin />} />
             <Route path="/CatsListFavourites" element={<CatsListFavourites />} />
             <Route path="/CatsListUser" element={<CatsListUser/>} />
              <Route path="/CatsListCentre" element={<CatsListCentre/>} />
-            <Route path="/cats" element={<CatsListStaff/>} />
             <Route path="/add" element={<AddCat/>} />
             <Route path="/cats/:id" element={<Cat/>} />
             

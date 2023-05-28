@@ -348,7 +348,7 @@ addMessage(){
             {cats.map((cat) => (
              <div key={cat.id} >
                <div  className="card">
-                <img className="card-img-top" src={'https://b.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
+                <img className="card-img-top" src={'https://backend.easonng520.repl.co/api/files/' + cat.image} alt="Card image"></img>
                 <div className="card-body ">
                 <h5 className="card-title">{cat.name+" "}  
                  
@@ -429,7 +429,7 @@ let result = array.map(i=>Number(i));
 
 <div className="row pt-2 ">
                   <div className="col-sm-1 text-info"> <i className='far fa-comment-alt'></i></div>
-  <div className="col-sm-7  text-start border bg-light">{message.message}</div>
+  <div className="col-sm-7  text-start border-bottom">{message.message}</div>
                   
 </div>
 
@@ -438,7 +438,7 @@ let result = array.map(i=>Number(i));
 {message.reply !=null &&
   <div className="row pt-2 ">
                   <div className="col-sm-4"></div>
-  <div className="col-sm-7 text-right border bg-light ">{message.reply}</div>
+  <div className="col-sm-7 text-right border-bottom">{message.reply}</div>
                    <div className="col-sm-1 "><i className='far fa-comment text-info'></i></div>
 </div>
 }
